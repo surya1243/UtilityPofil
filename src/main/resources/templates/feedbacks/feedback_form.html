@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>User Register Page</title>
+
+    <th:block layout:fragment="styles">
+
+        
+    </th:block>
+</head>
+<body>
+<div >
+    <div  class="main-container">
+        <div class="main-content">
+
+            <div class="page-content" layout:fragment="content">
+                <div class="page-header">
+                    <h1>
+                        <i class="ace-icon fa fa-users blue"></i>
+                        Customer Feedback (After Service)
+                    </h1>
+                </div><!-- /.page-header -->
+
+				<div class="row">
+				
+				                    <div th:if="${message}">
+				                        <h2 class="alert alert-danger" th:text="${message}"/>
+				                    </div>
+				                    
+				  <div class="col-xs-12">
+				  <div class="position-relative">
+				      <div class="signup-box visible widget-box no-border">
+				          <div class="widget-body">
+				              <div class="widget-main"> 
+				                <form th:object="${feedback}" method="POST" th:action="@{/feedback}" >                              
+				                <div class="row">
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                  <label class="block clearfix" for="inputCode">Client Code</label>
+				                                   <input type="remark" class="form-control" name="clientCode" id="inputRemark" placeholder="Enter Client Code (8 digits)" required>
+				                                  <div class="help-block with-errors"></div>
+				                              </div>
+										</div>
+				
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                 <label class="block clearfix" for="nameAcc">Customer Name</label>
+				                                 <input type="remark" class="form-control" name="custName" id="inputRemark" placeholder="Enter Customer Name" required>
+				                                 <div class="help-block with-errors"></div>
+				                             </div>
+										</div>
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                  <label class="block clearfix" for="inputMobile">Account Number(s)</label>
+										           <input type="remark" class="form-control" name="accountNumber" id="inputRemark" placeholder="Enter Account Number (20 digits)" required>
+				                                  <div class="help-block with-errors"></div>
+				                              </div>                                                
+				                        </div>         
+									</div>
+									
+								<div class="row">
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Mobile Number</label>
+				                               <input type="remark" class="form-control" name="mobileNumber" id="inputRemark" placeholder="Enter Mobile Number" required>
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>
+										
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Telephone Number</label>
+				                                <input type="remark" class="form-control" name="telNumber" id="inputRemark" placeholder="Telephone Number">
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>
+				
+										<div class="col-xs-6 col-sm-4">
+				                               <label class="block clearfix" for="schemaTenure">Account Type</label>
+						                        <input type="remark" class="form-control" name="accountType" id="inputRemark" placeholder="Enter Account Type" required>
+				                        	<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									
+								<div class="row">
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Type of Service Taken</label>
+				                                 <select class="chosen-select form-control" id="insType" name="typeOfService" data-placeholder="Choose a Type of Service..." required>
+                                                        <option value="">  </option>
+                                                        <option value="Deposit">Deposit</option>
+                                                        <option value="Loan">Loan</option>
+                                                        <option value="Deposit & Loan">Deposit & Loan</option>                                                        
+                                                    </select>
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>
+										
+										<div class="col-xs-6 col-sm-4">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Time Take for Service</label>
+				                                <input type="remark" class="form-control" name="timeTakenForService" id="inputRemark" placeholder="Time Take for Service" required>
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>
+				
+										<div class="col-xs-6 col-sm-4">
+				                               <label class="block clearfix" for="branchName-dropdown">Branch</label>				                             
+							                        <select class=" form-control" id="branchName-dropdown" name="branchName" data-placeholder="Choose Branch..." required>
+														
+												</select>
+				                        	<div class="help-block with-errors"></div>
+										</div>
+									</div>
+									
+								<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Customer's Feedback</label>
+				                                <textarea  name="custFeedback" placeholder="Description" class="form-control"></textarea>
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-xs-6 ">
+											<div class="form-group">
+				                                <label class="header block clearfix" for="inputCName">Rating of Service (By Customer)</label>
+				                               
+					                                <div class="radio">
+														<label>
+															<input name="rating" value="Worst" type="radio" class="ace input-lg" checked/>
+															<span class="lbl"> Worst </span>
+														</label>
+													</div>
+													
+													 <div class="radio">
+														<label>
+															<input name="rating" value="Poor" type="radio" class="ace input-lg" />
+															<span class="lbl"> Poor </span>
+														</label>
+													</div>
+													
+													 <div class="radio">
+														<label>
+															<input name="rating" value="Satisfactory" type="radio" class="ace input-lg" />
+															<span class="lbl"> Satisfactory </span>
+														</label>
+													</div>
+													
+													 <div class="radio">
+														<label>
+															<input name="rating" value="Good" type="radio" class="ace input-lg" />
+															<span class="lbl"> Good </span>
+														</label>
+													</div>
+													
+													 <div class="radio">
+														<label>
+															<input name="rating" value="Excellent" type="radio" class="ace input-lg" />
+															<span class="lbl"> Excellent </span>
+														</label>
+													</div>
+													
+													 <div class="radio">
+													<label>
+														<input name="rating" value="Needed Improvement" type="radio" class="ace input-lg" />
+														<span class="lbl"> Needed Improvement </span>
+													</label>
+												</div>
+												
+				                                
+				                            </div>
+										</div>
+										
+										
+										<div class="col-xs-6 col-sm-6">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Feedback Collected By</label>
+				                                <input type="remark" name="collectedBy" class="form-control" id="inputRemark" placeholder="Feedback Collected By">
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>
+										
+										<div class="col-xs-6 col-sm-6">
+											<div class="form-group">
+				                                <label class="block clearfix" for="inputCName">Date</label>
+				                               <div class="input-group">
+															<input id="date-timepicker1" type="text" name="date" placeholder="Select date and time" class="form-control" />
+															<span class="input-group-addon">
+																<i class="fa fa-clock-o bigger-110"></i>
+															</span>
+														</div>
+				                                <div class="help-block with-errors"></div>
+				                            </div>
+										</div>	
+										
+										
+						<div class="col-xs-6">				
+				
+				<div class="col-xs-6 col-sm-6">						
+					<div class="clearfix">
+                               <button class="pull-right btn btn-sm" type="button" id="reset">
+                                   <i class="ace-icon fa fa-refresh"></i> <span
+                                       class="bigger-110">Reset</span>
+                               </button>
+                               
+					</div>
+				</div>	
+				<div class="col-xs-6 col-sm-6">		
+				<div class="clearfix">
+				                                 <button class="pull-left btn btn-sm btn-success"
+				                                         type="submit">
+				                                     <span class="bigger-110">Submit</span> <i
+				                                         class="ace-icon fa fa-arrow-right icon-on-right"></i>
+				                                 </button>
+				                                 </div>
+				                             </div>
+									</div>
+									</div>	
+									</form>
+								</div>
+							</div>	
+						</div>
+				  	</div>
+				   </div>
+				</div>
+</div>                     
+</div>
+</div>
+</div>
+
+<!-- basic scripts -->
+<th:block layout:fragment="scripts">
+    <script src="../static/js/moment.min.js" th:src="@{/js/moment.min.js/}"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js" th:src="@{/js/bootstrap-datetimepicker.min.js/}"></script>
+ <script src="../static/js/autosize.min.js" th:src="@{/js/autosize.min.js/}"></script>
+  <script src="../static/js/getBranch.js" th:src="@{/js/getBranch.js/}"></script>
+     <script src="../static/js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js/}"></script>
+ <script>
+		autosize(document.querySelectorAll('textarea'));
+	</script>
+    <script>
+
+	if(!ace.vars['touch']) {
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		//resize the chosen on window resize
+
+		$(window)
+		.off('resize.chosen')
+		.on('resize.chosen', function() {
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({'width': $this.parent().width()});
+			})
+		}).trigger('resize.chosen');
+		//resize chosen on sidebar collapse/expand
+		$(document).on('settings.ace.chosen', function(e, event_name, event_val) {
+			if(event_name != 'sidebar_collapsed') return;
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({'width': $this.parent().width()});
+			})
+		});
+	}
+
+	if(!ace.vars['old_ie']) $('#date-timepicker1').datetimepicker({
+	 //format: 'MM/DD/YYYY h:mm:ss A',//use this option to display seconds
+	 icons: {
+		time: 'fa fa-clock-o',
+		date: 'fa fa-calendar',
+		up: 'fa fa-chevron-up',
+		down: 'fa fa-chevron-down',
+		previous: 'fa fa-chevron-left',
+		next: 'fa fa-chevron-right',
+		today: 'fa fa-arrows ',
+		clear: 'fa fa-trash',
+		close: 'fa fa-times'
+	 }
+	}).next().on(ace.click_event, function(){
+		$(this).prev().focus();
+	});
+
+    </script>
+
+</th:block>
+
+
+
+<!--[if !IE]> -->
+<script type="text/javascript" href="../static/js/jquery-2.1.4.min.js" th:src="@{/js/jquery-2.1.4.min.js/}"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+</body>
+</html>

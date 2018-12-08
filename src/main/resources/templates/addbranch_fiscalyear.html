@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>User Register Page</title>
+	</head>
+	<body>
+	<div layout:fragment="content">
+		<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+			<ul class="breadcrumb">
+				<li>
+					<i class="ace-icon fa fa-home home-icon"></i>
+					<a href="#">Home</a>
+				</li>
+
+				<li>
+					<a href="#">UI &amp; Elements</a>
+				</li>
+				<li class="active">Elements</li>
+			</ul><!-- /.breadcrumb -->						
+		</div>	
+		<div class="page-content">						
+			<div class="page-header">
+				<h1>
+					Add New Branch and Fiscal Years				
+				</h1>
+			</div><!-- /.page-header -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="tabbable">
+								<ul class="nav nav-tabs" id="myTab">
+									<li class="active">
+										<a data-toggle="tab" href="#home">
+											<i class="green ace-icon fa fa-home bigger-120"></i>
+											Add New Branch
+										</a>
+									</li>
+
+									<li>
+										<a data-toggle="tab" href="#messages">
+											Add Fiscal Year											
+										</a>
+									</li>
+								</ul>
+
+							<div class="tab-content">
+								<div id="home" class="tab-pane fade in active">
+									<form th:action="@{/addbranch}" th:object="${branch}" method="POST" data-toggle="validator" role="form" >
+									<fieldset>
+									<div class="form-group">
+					                      <label class="block clearfix" for="nameBranchName">Branch Name</label>
+										<select class="chosen-select form-control" id="nameBranchName" name="branchName" required>
+											<option value="" selected> Please Select Branch Name... </option>
+											<option th:each="branchLists : ${branchList}"
+													th:value="${branchLists.branchName}"
+													th:text="${branchLists.branchName}"></option>
+										</select>
+					                      <div class="help-block with-errors"></div>
+				                  	</div>
+									<div class="form-group">
+				                      <label class="block clearfix" for="branchAddress">Branch Address</label>
+				                      <span class="block input-icon input-icon-right">
+				                      <input class="form-control" name ="branchAddress" data-error="Please enter name field." id="branchAddress" placeholder="Branch Address"  type="text" required />
+				                       <i class="ace-icon fa fa-user"></i>
+						               </span>
+				                      <div class="help-block with-errors"></div>
+				                   </div>			
+									<div class="form-group">
+					                    <label for="branchPhone" class="block clearfix">Branch Phone</label>
+					                    <span class="block input-icon input-icon-right">
+					                    <input type="text" pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$" 
+						    onblur="this.parentNode.parentNode.style.backgroundColor=/^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$/.test(this.value)?'inherit':'red'" class="form-control" id="branchPhone"  name ="branchPhone" placeholder="Branch Phone" required/>
+					                    <i class="ace-icon fa fa-envelope"></i>
+					                    </span>
+					                    <div class="help-block with-errors"></div>
+					                </div>
+					                
+					                <div class="form-group">
+									    <label for="inputRemark" class="block clearfix">Remark</label>
+									      <span class="block input-icon input-icon-right">
+									         <input type="remark" class="form-control" id="inputRemark" placeholder="Remark">
+									           <i class="ace-icon fa fa-lock"></i>
+					                   			 </span>          
+									         <div class="help-block with-errors"></div>
+									 </div>
+											<div class="space-10"></div>
+
+											<div class="clearfix">
+												<button type="reset" class="width-30 pull-left btn btn-sm">
+													<i class="ace-icon fa fa-refresh"></i> <span
+														class="bigger-110">Reset</span>
+												</button>
+
+												<button type="submit"
+													class="width-65 pull-right btn btn-sm btn-success">
+													<span class="bigger-110">Register</span> <i
+														class="ace-icon fa fa-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</fieldset>
+									</form>
+									</div>
+
+								<div id="messages" class="tab-pane fade">
+									<form th:action="@{/addfiscalyear}" th:object="${fiscalYear}" method="POST" data-toggle="validator" role="form" >
+									<fieldset>
+									<div class="form-group">
+					                      <label class="block clearfix" for="nameFiscalYear">Fiscal Year</label>
+										<select class="form-control" id="nameFiscalYear" name="fiscalYear" required>
+											<option value="" selected> Please Select Fiscal Year... </option>
+											<option th:each="fiscalYears : ${fiscalYearList}"
+													th:value="${fiscalYears.fiscalYear}"
+													th:text="${fiscalYears.fiscalYear}"></option>
+										</select>
+					                      <div class="help-block with-errors"></div>
+				                  	</div>
+									<div class="form-group">
+				                      <label class="block clearfix" for="remark">Remarks</label>
+				                      <span class="block input-icon input-icon-right">
+				                      <input class="form-control" name ="remark" data-error="Please enter name field." id="remark" placeholder="Remarks"  type="text" required />
+				                       <i class="ace-icon fa fa-user"></i>
+						               </span>
+				                      <div class="help-block with-errors"></div>
+				                   </div>							
+									<div class="space-10"></div>
+
+									<div class="clearfix">
+										<button type="reset" class="width-30 pull-left btn btn-sm">
+											<i class="ace-icon fa fa-refresh"></i> <span
+												class="bigger-110">Reset</span>
+										</button>
+
+										<button type="submit"
+											class="width-65 pull-right btn btn-sm btn-success">
+											<span class="bigger-110">Submit</span> <i
+												class="ace-icon fa fa-arrow-right icon-on-right"></i>
+										</button>
+									</div>
+										</fieldset>
+									</form>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.col -->	
+							<div class="vspace-6-sm"></div>
+						<div class="col-sm-8">
+						<div class="tabbable">
+							<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+								<li class="active">
+									<a data-toggle="tab" href="#home4" aria-expanded="true">Branch List</a>
+								</li>
+
+								<li class="">
+									<a data-toggle="tab" href="#profile4" aria-expanded="false">Fiscal Year List</a>
+								</li>
+							</ul>
+
+							<div class="tab-content">
+								<div id="home4" class="tab-pane active">
+						<div>
+						<table class="dynamic-table table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th width="25%">Branch Name</th>									
+									<th width="25%" class="hidden-480">Branch Phone</th>									
+									<th width="10%">Action</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr th:each="branchList :${branchList}">
+									<td	th:text="${branchList?.branchName}">test</td>									
+									<td th:text="${branchList?.branchPhone}" class="hidden-480">test</td>									
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+											<ul id="parent">
+												<li><a class="btn btn-success"
+													th:href="@{'/updatebranch/'+${branchList.id}}"> <i
+														class="glyphicon glyphicon-pencil"></i>
+												</a></li>
+												<li>
+													<form th:action="@{/branch/delete}" th:method="delete">
+														<input type="hidden" name="id" th:value="${branchList.id}" />
+														<button class="btn btn-danger " type="submit"
+															value="Delete">
+															<span class="glyphicon glyphicon-trash"></span>
+														</button>
+														<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+													</form>
+												</li>
+											</ul>
+										</div>
+										<div class="hidden-md hidden-lg">
+											<div class="inline pos-rel">
+												<button class="btn btn-minier btn-yellow dropdown-toggle"
+													data-toggle="dropdown" data-position="auto">
+													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+												</button>
+
+												<ul
+													class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+
+													<li><a class="btn btn-success"
+														th:href="@{'/updatebranch/'+${branchList.id}}"> <i
+															class="glyphicon glyphicon-pencil"></i>
+													</a></li>
+
+													<li>
+														<form th:action="@{/branch/delete}" th:method="delete">
+															<input type="hidden" name="id" th:value="${branchList.id}" />
+															<button class="btn btn-danger " type="submit"
+																value="Delete">
+																<span class="glyphicon glyphicon-trash"></span>
+															</button>
+															<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+														</form>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div id="profile4" class="tab-pane">
+					<div>
+						<table class="dynamic-table table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th width="25%">Fiscal Year</th>									
+									<th width="25%" >Remarks</th>									
+									<th width="10%">Action</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr th:each="fiscalYearList :${fiscalYearList}">
+									<td	th:text="${fiscalYearList?.fiscalYear}">test</td>									
+									<td th:text="${fiscalYearList?.remark}">test</td>									
+									<td>
+										<div class="hidden-sm hidden-xs action-buttons">
+											<ul id="parent">
+												<li><a class="btn btn-success"
+													th:href="@{'/updatefiscalyear/'+${fiscalYearList.id}}"> <i
+														class="glyphicon glyphicon-pencil"></i>
+												</a></li>
+												<li>
+													<form th:action="@{/fiscalyear/delete}" th:method="delete">
+														<input type="hidden" name="id" th:value="${fiscalYearList.id}" />
+														<button class="btn btn-danger " type="submit"
+															value="Delete">
+															<span class="glyphicon glyphicon-trash"></span>
+														</button>
+														<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+													</form>
+												</li>
+											</ul>
+										</div>
+										<div class="hidden-md hidden-lg">
+											<div class="inline pos-rel">
+												<button class="btn btn-minier btn-yellow dropdown-toggle"
+													data-toggle="dropdown" data-position="auto">
+													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+												</button>
+
+												<ul
+													class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+
+													<li><a class="btn btn-success"
+														th:href="@{'/updatefiscalyear/'+${fiscalYearList.id}}"> <i
+															class="glyphicon glyphicon-pencil"></i>
+													</a></li>
+
+													<li>
+														<form th:action="@{/fiscalyear/delete}" th:method="delete">
+															<input type="hidden" name="id" th:value="${fiscalYearList.id}" />
+															<button class="btn btn-danger " type="submit"
+																value="Delete">
+																<span class="glyphicon glyphicon-trash"></span>
+															</button>
+															<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+														</form>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+								</div>
+							</div>
+						</div>
+					</div>				
+					</div>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content -->
+
+
+
+	</div>
+	
+	<th:block layout:fragment="scripts">
+		<script src="../static/js/jquery.dataTables.min.js"
+			th:src="@{/js/jquery.dataTables.min.js/}"></script>
+		<script src="../static/js/jquery.dataTables.bootstrap.min.js"
+			th:src="@{/js/jquery.dataTables.bootstrap.min.js/}"></script>
+		<script src="../static/js/dataTables.buttons.min.js"
+			th:src="@{/js/dataTables.buttons.min.js/}"></script>
+		<script src="../static/js/buttons.flash.min.js"
+			th:src="@{/js/buttons.flash.min.js/}"></script>
+		<script src="../static/js/buttons.html5.min.js"
+			th:src="@{/js/buttons.html5.min.js/}"></script>
+		<script src="../static/js/buttons.print.min.js"
+			th:src="@{/js/buttons.print.min.js/}"></script>
+		<script src="../static/js/buttons.colVis.min.js"
+			th:src="@{/js/buttons.colVis.min.js/}"></script>
+		<script src="../static/js/dataTables.select.min.js"
+			th:src="@{/js/dataTables.select.min.js/}"></script>
+
+		<script type="text/javascript">
+			jQuery(function($) {
+				//initiate dataTables plugin
+				var myTable = 
+				$('.dynamic-table')
+				
+				.DataTable( {
+					bAutoWidth: false,
+					"aoColumns": [					 
+					  null, null,
+					 
+					  { "bSortable": false }
+					],
+					"aaSorting": [],				
+					
+			    
+			});
+			})
+		</script>
+		<script>
+            $('.chosen-select').chosen();
+            $(window)
+                .off('resize.chosen')
+                .on('resize.chosen', function() {
+                    $('.chosen-select').each(function() {
+                        var $this = $(this);
+                        $this.next().css({'width': $this.parent().width()});
+                    })
+                }).trigger('resize.chosen');
+
+		</script>
+
+		<!-- basic scripts -->
+
+		<!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+	</th:block>
+	</body>
+</html>

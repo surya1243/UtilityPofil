@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>User Register Page</title>		
+	</head>
+	<body>
+	<div layout:fragment="content">
+		<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+			<ul class="breadcrumb">
+				<li>
+					<i class="ace-icon fa fa-home home-icon"></i>
+					<a href="#">Home</a>
+				</li>
+
+				<li>
+					<a href="#">UI &amp; Elements</a>
+				</li>
+				<li class="active">Elements</li>
+			</ul><!-- /.breadcrumb -->						
+		</div>	
+		<div class="page-content">						
+			<div class="page-header">
+				<h1>
+					Add New Branch and Fiscal Years				
+				</h1>
+			</div><!-- /.page-header -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="tabbable">
+								<ul class="nav nav-tabs" id="myTab" >
+									<li class="active">
+										<a data-toggle="tab" href="#home">
+											<i class="green ace-icon fa fa-home bigger-120"></i>
+											Add New Branch
+										</a>
+									</li>
+
+									<li>
+										<a data-toggle="tab" href="#messages">
+											Add Fiscal Year											
+										</a>
+									</li>
+								</ul>
+
+							<div class="tab-content">
+								<div id="home" class="tab-pane fade in active">
+									<form th:action="@{/updatebranch}" action="/updatebranch" class="form-horizontal" th:object="${branch}" method="POST"  modelAttribute="branch">
+									<input
+									  type="hidden"
+									  th:name="${_csrf.parameterName}"
+									  th:value="${_csrf.token}" />
+									<fieldset>
+									<input type="hidden" name="id" th:value="${branch.id}"/>
+									<div class="form-group">
+					                      <label class="block clearfix" for="namebranchName">Branch Name</label>
+					                      <span class="block input-icon input-icon-right">
+					                      <input class="form-control" name ="branchName" th:value="${branch.branchName}" data-error="Please enter name field." id="namebranchName" placeholder="Branch Name"  type="text" required />
+					                      <i class="ace-icon fa fa-user"></i>
+						                    </span>
+					                      <div class="help-block with-errors"></div>
+				                  	</div>
+									<div class="form-group">
+				                      <label class="block clearfix" for="branchAddress">Branch Address</label>
+				                      <span class="block input-icon input-icon-right">
+				                      <input class="form-control" name ="branchAddress" th:value="${branch.branchAddress}" data-error="Please enter name field." id="branchAddress" placeholder="Branch Address"  type="text" required />
+				                       <i class="ace-icon fa fa-user"></i>
+						               </span>
+				                      <div class="help-block with-errors"></div>
+				                   </div>			
+									<div class="form-group">
+					                    <label for="branchPhone" class="block clearfix">Branch Phone</label>
+					                    <span class="block input-icon input-icon-right">
+					                    <input type="text" pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$" 
+						    onblur="this.parentNode.parentNode.style.backgroundColor=/^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$/.test(this.value)?'inherit':'red'" 
+						    th:value="${branch.branchPhone}" class="form-control" id="branchPhone"  name ="branchPhone" placeholder="Branch Phone" required/>
+					                    <i class="ace-icon fa fa-envelope"></i>
+					                    </span>
+					                    <div class="help-block with-errors"></div>
+					                </div>
+					                
+					                <div class="form-group">
+									    <label for="inputRemark" class="block clearfix">Remark</label>
+									      <span class="block input-icon input-icon-right">
+									         <input type="text" class="form-control" th:value="${branch.remark}" id="inputRemark" placeholder="Remark">
+									           <i class="ace-icon fa fa-lock"></i>
+					                   			 </span>          
+									         <div class="help-block with-errors"></div>
+									 </div>
+											<div class="space-10"></div>
+
+											<div class="clearfix">
+												<button type="reset" class="width-30 pull-left btn btn-sm">
+													<i class="ace-icon fa fa-refresh"></i> <span
+														class="bigger-110">Reset</span>
+												</button>
+
+												<button type="submit"
+													class="width-65 pull-right btn btn-sm btn-success">
+													<span class="bigger-110">Register</span> <i
+														class="ace-icon fa fa-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</fieldset>
+									</form>
+						</div>
+
+								<div id="messages" class="tab-pane fade">
+									<!-- <form th:object="${fiscalYears}" class="form-horizontal" method="POST" action="/updatefiscalyear" modelAttribute="fiscalYears">
+									<input
+									  type="hidden"
+									  th:name="${_csrf.parameterName}"
+									  th:value="${_csrf.token}" />
+									  
+									<fieldset>
+									<input type="hidden" name="id" th:value="${fiscalYears.id}"/>								
+									<div class="form-group">
+					                      <label class="block clearfix" for="nameFiscalYear">Fiscal Year</label>
+					                      <span class="block input-icon input-icon-right">
+					                      <input class="form-control" name ="fiscalYear" th:value="${fiscalYears.fiscalYear}" data-error="Please enter name field." id="nameFiscalYear" placeholder="Fiscal Year"  type="text" required />
+					                      <i class="ace-icon fa fa-user"></i>
+						                    </span>
+					                      <div class="help-block with-errors"></div>
+				                  	</div>
+									<div class="form-group">
+				                      <label class="block clearfix" for="nameRemark">Remark</label>
+				                      <span class="block input-icon input-icon-right">
+				                      <input class="form-control" name ="remark" th:value="${fiscalYears.remark}" data-error="Please enter name field." id="nameRemark" placeholder="Last Name"  type="text" required />
+				                       <i class="ace-icon fa fa-user"></i>
+						               </span>
+				                      <div class="help-block with-errors"></div>
+				                   </div>			
+									
+								<div class="space-10"></div>
+
+									<div class="clearfix">
+										<button type="reset" class="width-30 pull-left btn btn-sm">
+											<i class="ace-icon fa fa-refresh"></i>
+											<span class="bigger-110">Reset</span>
+										</button>
+
+										<button type="submit"class="width-65 pull-right btn btn-sm btn-success">
+											<span class="bigger-110">Register</span>
+
+											<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+										</button>
+									</div>
+								</fieldset>
+							</form> -->
+									</div>
+								</div>
+							</div>
+						</div><!-- /.col -->	
+				
+					</div>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content -->
+
+
+
+	</div>
+	
+	
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		 <script type="text/javascript" href="../static/js/jquery-2.1.4.min.js" th:src="@{/js/jquery-2.1.4.min.js/}"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+		
+	</body>
+</html>

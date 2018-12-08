@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta charset="utf-8"/>
+    <title>Insurance Page</title>
+    <th:block layout:fragment="styles">
+
+        <link href="../static/css/chosen.min.css" rel="stylesheet" th:href="@{/css/chosen.min.css}"/>
+
+    </th:block>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="#">Home</a>
+            </li>
+
+            <li>
+                <a href="#">UI &amp; Elements</a>
+            </li>
+            <li class="active">Elements</li>
+        </ul><!-- /.breadcrumb -->
+    </div>
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                Add New Branch and Fiscal Years
+            </h1>
+        </div><!-- /.page-header -->
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#home">
+                                        <i class="green ace-icon fa fa-home bigger-120"></i>
+                                        Add New Insurance Company
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#messages">
+                                        Add Insurance Schema Product
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="home">
+                                    <form data-toggle="validator" method="POST" role="form"
+                                          th:action="@{/addinscompany}" th:object="${insCompany}">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="insCode">Insurance Company
+                                                    Code</label>
+                                                <span class="block input-icon input-icon-right">
+					                      <input class="form-control" data-error="Please enter Insurance Company Code."
+                                                 id="insCode" name="insCompanyCode"
+                                                 placeholder="Company Code" required type="text"/>
+						                    </span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="insName">Insurance Company
+                                                    Name</label>
+                                                <span class="block input-icon input-icon-right">
+				                      <input class="form-control" data-error="Please enter Insurance Company Name."
+                                             id="insName" name="insCompanyName"
+                                             placeholder="Company Name" required type="text"/>
+						               </span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="insCType">Insurance Type</label>
+                                                <select class="chosen-select form-control" data-placeholder="Choose insurance company type..." id="insCType"
+                                                        multiple=""
+                                                        name="insCompanyType" required>
+                                                    <option value=""></option>
+                                                    <option value="Life">Life</option>
+                                                    <option value="Non_Life">Non Life</option>
+                                                    <option value="Life_NonLife">Life & Non Life</option>
+                                                </select>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="inputRemark">Remark</label>
+                                                <textarea class="form-control" id="inputRemark" name="remark"
+                                                          placeholder="Description"></textarea>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+
+
+                                            <div class="space-10"></div>
+
+                                            <div class="clearfix">
+                                                <button class="width-30 pull-left btn btn-sm" type="reset">
+                                                    <i class="ace-icon fa fa-refresh"></i> <span
+                                                        class="bigger-110">Reset</span>
+                                                </button>
+
+                                                <button class="width-65 pull-right btn btn-sm btn-success"
+                                                        type="submit">
+                                                    <span class="bigger-110">Register</span> <i
+                                                        class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                </button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane fade" id="messages">
+                                    <form data-toggle="validator" method="POST" role="form"
+                                          th:action="@{/addinsschema}" th:object="${insSchema}">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="insCompanyCode">Insurance Company
+                                                    Code</label>
+                                                <select class="form-control" id="insCompanyCode" name="insCompanyCode"
+                                                        required>
+                                                    <option selected value=""> Please Select Insurance Company Code...
+                                                    </option>
+                                                    <option th:each="companyCode : ${companyCode}"
+                                                            th:text="${companyCode.insCompanyCode}"
+                                                            th:value="${companyCode.insCompanyCode}"></option>
+                                                </select>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="inscode">Schema Code</label>
+                                                <span class="block input-icon input-icon-right">
+                                                      <input class="form-control" data-error="Please enter Insurance Schema Code."
+                                                             id="inscode"
+                                                             name="insSchemaCode" placeholder="Company Name" required
+                                                             type="text"/>
+                                                       </span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="insName">Schema Name</label>
+                                                <span class="block input-icon input-icon-right">
+                                                      <input class="form-control" data-error="Please enter Insurance Schema Name."
+                                                             id="insName"
+                                                             name="insSchemaName" placeholder="Company Name" required
+                                                             type="text"/>
+                                                       </span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="insType">Insurance
+                                                    Type</label>
+                                                <select class="form-control" id="insType" name="schemaType" required>
+                                                    <option selected value=""> Please Select Insurance Company Type...
+                                                    </option>
+                                                    <option value="Life">Life</option>
+                                                    <option value="Non_Life">Non Life</option>
+                                                    <option value="Life_NonLife">Life & Non Life</option>
+                                                </select>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="block clearfix" for="inputRemark">Remark</label>
+                                                <textarea class="form-control" id="inputRemark" name="remark"
+                                                          placeholder="Description"></textarea>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+
+
+                                            <div class="space-10"></div>
+
+                                            <div class="clearfix">
+                                                <button class="width-30 pull-left btn btn-sm" type="reset">
+                                                    <i class="ace-icon fa fa-refresh"></i> <span
+                                                        class="bigger-110">Reset</span>
+                                                </button>
+
+                                                <button class="width-65 pull-right btn btn-sm btn-success"
+                                                        type="submit">
+                                                    <span class="bigger-110">Register</span> <i
+                                                        class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                </button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="vspace-6-sm"></div>
+                    <div class="col-sm-7">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                <li class="active">
+                                    <a aria-expanded="true" data-toggle="tab" href="#home4"> Insurance Company List </a>
+                                </li>
+
+                                <li class="">
+                                    <a aria-expanded="false" data-toggle="tab" href="#profile4" id="tab2"> Schema
+                                        Product List </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home4">
+                                    <div>
+                                        <table class="dynamic-table table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th width="25%">Insurance Company Code</th>
+                                                <th class="hidden-480" width="25%">Company Name</th>
+                                                <th class="hidden-480" width="25%">Insurance Type</th>
+                                                <th hidden width="25%"></th>
+                                                <th width="10%">Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="branchList :${branchList}">
+                                                <td th:text="${branchList?.insCompanyCode}">test</td>
+                                                <td class="hidden-480" th:text="${branchList?.insCompanyName}">test</td>
+                                                <td class="hidden-480" th:text="${branchList?.insCompanyType}">test</td>
+                                                <td hidden></td>
+                                                <td>
+                                                    <div class="hidden-sm hidden-xs action-buttons">
+                                                        <ul id="parent">
+                                                            <li><a class="btn btn-success"
+                                                                   th:href="@{'/updatebranch/'+${branchList.id}}"> <i
+                                                                    class="glyphicon glyphicon-pencil"></i>
+                                                            </a></li>
+                                                            <li>
+                                                                <form th:action="@{/branch/delete}" th:method="delete">
+                                                                    <input name="id" th:value="${branchList.id}"
+                                                                           type="hidden"/>
+                                                                    <button class="btn btn-danger " type="submit"
+                                                                            value="Delete">
+                                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                                    </button>
+                                                                    <!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="hidden-md hidden-lg">
+                                                        <div class="inline pos-rel">
+                                                            <button class="btn btn-minier btn-yellow dropdown-toggle"
+                                                                    data-position="auto" data-toggle="dropdown">
+                                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                                            </button>
+
+                                                            <ul
+                                                                    class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+
+                                                                <li><a class="btn btn-success"
+                                                                       th:href="@{'/updatebranch/'+${branchList.id}}">
+                                                                    <i
+                                                                            class="glyphicon glyphicon-pencil"></i>
+                                                                </a></li>
+
+                                                                <li>
+                                                                    <form th:action="@{/branch/delete}"
+                                                                          th:method="delete">
+                                                                        <input name="id" th:value="${branchList.id}"
+                                                                               type="hidden"/>
+                                                                        <button class="btn btn-danger " type="submit"
+                                                                                value="Delete">
+                                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                                        </button>
+                                                                        <!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="profile4">
+                                    <div>
+                                        <table class="dynamic-table table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th >Company Code</th>
+                                                <th >Schema Code</th>
+                                                <th >Schema Name</th>
+                                                <th >Company Type</th>
+                                                <th width="10%">Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="fiscalYearList :${fiscalYearList}">
+                                                <td th:text="${fiscalYearList?.insCompanyCode}">test</td>
+                                                <td th:text="${fiscalYearList?.insSchemaCode}">test</td>
+                                                <td th:text="${fiscalYearList?.insSchemaCode}">test</td>
+                                                <td th:text="${fiscalYearList?.insSchemaName}">test</td>
+                                                <td>
+                                                    <div class="hidden-sm hidden-xs action-buttons">
+                                                        <ul id="parent">
+                                                            <li><a class="btn btn-success"
+                                                                   th:href="@{'/updatefiscalyear/'+${fiscalYearList.id}}">
+                                                                <i
+                                                                        class="glyphicon glyphicon-pencil"></i>
+                                                            </a></li>
+                                                            <li>
+                                                                <form th:action="@{/fiscalyear/delete}"
+                                                                      th:method="delete">
+                                                                    <input name="id" th:value="${fiscalYearList.id}"
+                                                                           type="hidden"/>
+                                                                    <button class="btn btn-danger " type="submit"
+                                                                            value="Delete">
+                                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                                    </button>
+                                                                    <!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="hidden-md hidden-lg">
+                                                        <div class="inline pos-rel">
+                                                            <button class="btn btn-minier btn-yellow dropdown-toggle"
+                                                                    data-position="auto" data-toggle="dropdown">
+                                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                                            </button>
+
+                                                            <ul
+                                                                    class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+
+                                                                <li><a class="btn btn-success"
+                                                                       th:href="@{'/updatefiscalyear/'+${fiscalYearList.id}}">
+                                                                    <i
+                                                                            class="glyphicon glyphicon-pencil"></i>
+                                                                </a></li>
+
+                                                                <li>
+                                                                    <form th:action="@{/fiscalyear/delete}"
+                                                                          th:method="delete">
+                                                                        <input name="id" th:value="${fiscalYearList.id}"
+                                                                               type="hidden"/>
+                                                                        <button class="btn btn-danger " type="submit"
+                                                                                value="Delete">
+                                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                                        </button>
+                                                                        <!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+
+
+</div>
+
+<th:block layout:fragment="scripts">
+    <script src="../static/js/jquery.dataTables.min.js" th:src="@{/js/jquery.dataTables.min.js/}"></script>
+    <script src="../static/js/jquery.dataTables.bootstrap.min.js"
+            th:src="@{/js/jquery.dataTables.bootstrap.min.js/}"></script>
+    <script src="../static/js/dataTables.buttons.min.js" th:src="@{/js/dataTables.buttons.min.js/}"></script>
+    <script src="../static/js/buttons.flash.min.js" th:src="@{/js/buttons.flash.min.js/}"></script>
+    <script src="../static/js/buttons.html5.min.js" th:src="@{/js/buttons.html5.min.js/}"></script>
+    <script src="../static/js/buttons.print.min.js" th:src="@{/js/buttons.print.min.js/}"></script>
+    <script src="../static/js/buttons.colVis.min.js" th:src="@{/js/buttons.colVis.min.js/}"></script>
+    <script src="../static/js/dataTables.select.min.js" th:src="@{/js/dataTables.select.min.js/}"></script>
+    <script src="../static/js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js/}"></script>
+    <script src="../static/js/autosize.min.js" th:src="@{/js/autosize.min.js/}"></script>
+    <script>
+        autosize(document.querySelectorAll('textarea'));
+    </script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            if (!ace.vars['touch']) {
+                $('.chosen-select').chosen({allow_single_deselect: true});
+                //resize the chosen on window resize
+
+                $(window)
+                    .off('resize.chosen')
+                    .on('resize.chosen', function () {
+                        $('.chosen-select').each(function () {
+                            var $this = $(this);
+                            $this.next().css({'width': $this.parent().width()});
+                        })
+                    }).trigger('resize.chosen');
+                //resize chosen on sidebar collapse/expand
+                $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
+                    if (event_name != 'sidebar_collapsed') return;
+                    $('.chosen-select').each(function () {
+                        var $this = $(this);
+                        $this.next().css({'width': $this.parent().width()});
+                    })
+                });
+            }
+            //initiate dataTables plugin
+            $('.dynamic-table')
+
+                .DataTable({
+                    bAutoWidth: false,
+                    "aoColumns": [
+                        null, null, null, null,
+
+                        {"bSortable": false}
+                    ],
+                    "aaSorting": [],
+
+
+                });
+        })
+    </script>
+</th:block>
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script href="../static/js/jquery-2.1.4.min.js" th:src="@{/js/jquery-2.1.4.min.js/}" type="text/javascript"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+
+</body>
+</html>
