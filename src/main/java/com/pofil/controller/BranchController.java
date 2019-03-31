@@ -1,8 +1,5 @@
 package com.pofil.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +9,6 @@ import javax.validation.Valid;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pofil.model.AppUser;
 import com.pofil.model.Branch;
 import com.pofil.model.FiscalYear;
-import com.pofil.model.Role;
-import com.pofil.Util.Response;
 import com.pofil.repository.BranchRepository;
 import com.pofil.repository.FiscalYearRepository;
 import com.pofil.service.BranchDetailServiceImpl;
