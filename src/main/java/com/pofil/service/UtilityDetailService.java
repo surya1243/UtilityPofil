@@ -15,5 +15,8 @@ public interface UtilityDetailService {
 	List<UtilityBills> getAllBranch();
 
 	//Utility saveUtility(Utility utility);
-
+	
+	Optional<UtilityBills> findByBranchNameAndFiscalYear(String branchName, String fiscalYear);
+	Optional<UtilityBills> findByMonthAndFiscalYear(String month, String fiscalYear);
+	
 }

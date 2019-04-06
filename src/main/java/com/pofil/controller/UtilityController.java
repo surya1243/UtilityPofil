@@ -2,11 +2,14 @@ package com.pofil.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.pofil.service.BranchDetailService;
 import com.pofil.service.FiscalYearDetailService;
+import com.pofil.service.UtilityDetailService;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pofil.model.Expense;
+import com.pofil.model.FiscalYear;
+import com.pofil.model.Utility;
 import com.pofil.model.UtilityBills;
+import com.pofil.repository.FiscalYearRepository;
 import com.pofil.repository.UtilityBillsRepository;
 
 @Controller
@@ -27,9 +33,15 @@ public class UtilityController {
 	public static final int ID_LENGTH = 5;
 	@Autowired
 	private UtilityBillsRepository utilityBillsRepository;
-
+	
+	@Autowired
+	private FiscalYearRepository fiscalYearRepository;
+	
 	@Autowired
 	private BranchDetailService branchDetailService;
+	
+	@Autowired
+	private UtilityDetailService utilityDetailService;
 
 	@Autowired
 	private FiscalYearDetailService fiscalYearDetailService;
@@ -72,8 +84,10 @@ public class UtilityController {
 	@RequestMapping(value = "/utilitylist", method = RequestMethod.GET)
 	public String getUtilityList(Model model) {
 		List<UtilityBills> branchList = utilityBillsRepository.findAll();
+		List<FiscalYear> fiscalYearList = fiscalYearRepository.findAll();
 		model.addAttribute("branchList", branchList);
-		return "utilitylist";
+		model.addAttribute("fiscalYears", fiscalYearList);
+		return "utility/utilitylist";
 	}
 
 	@RequestMapping(value = "/branch/expense/{id}", method = RequestMethod.GET)
@@ -82,6 +96,20 @@ public class UtilityController {
 		model.addAttribute("branch", utilityBills);
 		return "expenselist";
 	}
+	
+	@RequestMapping(value="/utilityByMonth", method=RequestMethod.POST)
+	public String getUtilityDetailByMonth(Model model, @RequestParam("fiscalYear") String fiscalYear , @RequestParam("month") String month) {
+		Optional<UtilityBills> utilityBillsMonth = utilityBillsRepository.findByMonthAndFiscalYear(month, fiscalYear);
+		model.addAttribute("searchListMonth", utilityBillsMonth.get());	
+		return "utility/utilitylist";
+		}
+	
+	@RequestMapping(value="/utilityByBranch", method=RequestMethod.POST)
+	public String getUtilityDetailByBranch(Model model, @RequestParam("fiscalYear") String fiscalYear , @RequestParam("branchName") String branchName) {
+		Optional<UtilityBills> utilityBillsBranch = utilityBillsRepository.findByBranchNameAndFiscalYear(branchName, fiscalYear);
+		model.addAttribute("searchList", utilityBillsBranch.get());
+		return "utility/utilitylist";
+		}
 	
 	public String generateUniqueId() {
 		return RandomStringUtils.randomAlphanumeric(ID_LENGTH);

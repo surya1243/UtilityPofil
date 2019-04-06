@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ import com.pofil.repository.FiscalYearRepository;
 import com.pofil.service.BranchDetailServiceImpl;
 import com.pofil.service.FiscalYearDetailServiceImpl;
 
-@RestController
+@Controller
 public class BranchController {
 	public static final int ID_LENGTH = 5;
 	
@@ -48,7 +49,10 @@ public class BranchController {
 	public String getDemo(HttpServletRequest request, Model model) {		
 		return "updateDemo";
 	}
-
+	@RequestMapping(value = "/testfeedback", method = RequestMethod.GET)
+    public String getInsCompanyForm(HttpServletRequest request, Model model) {    	
+		return "addbranch_fiscalyear";
+    }
 	
 	@RequestMapping(value = "/addbranch", method = RequestMethod.GET)
 	public String getDefault(HttpServletRequest request, Model model) {
@@ -57,13 +61,9 @@ public class BranchController {
 		model.addAttribute("branchList", branchList);
 		model.addAttribute("fiscalYearList", fiscalYearList);
 		return "addbranch_fiscalyear";
+		
 	}
 	
-	@RequestMapping(value = "/getbranch", method = RequestMethod.GET)
-	public List<Branch>  getBranch() {
-		List<Branch> branch = branchRepository.findAll();		
-		return branch;
-	}
 	
 	@RequestMapping(value = "/addbranch", method = RequestMethod.POST)
 	public ModelAndView saveBranchDetail(Branch branch, BindingResult bindingResult) {

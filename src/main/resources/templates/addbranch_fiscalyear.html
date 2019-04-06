@@ -53,13 +53,13 @@
 									<form th:action="@{/addbranch}" th:object="${branch}" method="POST" data-toggle="validator" role="form" >
 									<fieldset>
 									<div class="form-group">
-					                      <label class="block clearfix" for="nameBranchName">Branch Name</label>
-										<select class="chosen-select form-control" id="nameBranchName" name="branchName" required>
-											<option value="" selected> Please Select Branch Name... </option>
-											<option th:each="branchLists : ${branchList}"
-													th:value="${branchLists.branchName}"
-													th:text="${branchLists.branchName}"></option>
-										</select>
+					                      <label class="block clearfix" for="branchName">Branch Name <small class="text-danger">001-Head Office</small></label>
+					                      <span class="block input-icon input-icon-right">
+					                      <input class="form-control" name ="branchName" data-error="Please enter name field." id="branchName" placeholder="Branch Name"  type="text" required />
+					                      <!-- <input class="form-control" pattern="^[0][0-9]{2}[-][A-Z][a-z]{3,30}( \w+)$" 
+						    onblur="this.parentNode.parentNode.style.backgroundColor=/^[0][0-9]{2}[-][A-Z][a-z]{3,30}( \w+)*$/.test(this.value)?'inherit':'red'" name ="branchName" data-error="Please enter name field." id="branchName" placeholder="Branch Name"  type="text" required /> -->
+					                      <i class="ace-icon fa fa-user"></i>
+						                    </span>
 					                      <div class="help-block with-errors"></div>
 				                  	</div>
 									<div class="form-group">
@@ -71,10 +71,10 @@
 				                      <div class="help-block with-errors"></div>
 				                   </div>			
 									<div class="form-group">
-					                    <label for="branchPhone" class="block clearfix">Branch Phone</label>
+					                    <label for="branchPhone" class="block clearfix">Branch Phone <small class="text-danger">999-999999</small></label>
 					                    <span class="block input-icon input-icon-right">
-					                    <input type="text" pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$" 
-						    onblur="this.parentNode.parentNode.style.backgroundColor=/^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$/.test(this.value)?'inherit':'red'" class="form-control" id="branchPhone"  name ="branchPhone" placeholder="Branch Phone" required/>
+					                    <input type="text" class="form-control input-mask-phone" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" 
+						    onblur="this.parentNode.parentNode.style.backgroundColor=/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(this.value)?'inherit':'red'" id="branchPhone"  name ="branchPhone" placeholder="Branch Phone" required/>
 					                    <i class="ace-icon fa fa-envelope"></i>
 					                    </span>
 					                    <div class="help-block with-errors"></div>
@@ -110,13 +110,12 @@
 									<form th:action="@{/addfiscalyear}" th:object="${fiscalYear}" method="POST" data-toggle="validator" role="form" >
 									<fieldset>
 									<div class="form-group">
-					                      <label class="block clearfix" for="nameFiscalYear">Fiscal Year</label>
-										<select class="form-control" id="nameFiscalYear" name="fiscalYear" required>
-											<option value="" selected> Please Select Fiscal Year... </option>
-											<option th:each="fiscalYears : ${fiscalYearList}"
-													th:value="${fiscalYears.fiscalYear}"
-													th:text="${fiscalYears.fiscalYear}"></option>
-										</select>
+					                      <label class="block clearfix" for="branchName">Fiscal Year <small class="text-danger">2075/76</small></label>
+					                      <span class="block input-icon input-icon-right">
+					                      <input class="form-control input-mask-date" pattern="^[2][0][0-9]{2}[/][0-9]{2}$" 
+						    onblur="this.parentNode.parentNode.style.backgroundColor=/^[2][0][0-9]{2}[/][0-9]{2}$/.test(this.value)?'inherit':'red'" name ="fiscalYear" data-error="Please enter fiscal year." id="fiscalYear" placeholder="Fiscal Year"  type="text" required />
+					                      <i class="ace-icon fa fa-calendar"></i>
+						                    </span>
 					                      <div class="help-block with-errors"></div>
 				                  	</div>
 									<div class="form-group">
@@ -327,6 +326,8 @@
 			th:src="@{/js/buttons.colVis.min.js/}"></script>
 		<script src="../static/js/dataTables.select.min.js"
 			th:src="@{/js/dataTables.select.min.js/}"></script>
+			<script src="../static/js/jquery.maskedinput.min.js"
+			th:src="@{/js/jquery.maskedinput.min.js/}"></script>
 
 		<script type="text/javascript">
 			jQuery(function($) {
@@ -344,8 +345,16 @@
 					"aaSorting": [],				
 					
 			    
-			});
+			});				
 			})
+		</script>
+		
+		<script>
+		$.mask.definitions['~']='[+-]';
+		$('.input-mask-date').mask('9999/99');
+		$('.input-mask-phone').mask('999-999999');	
+		
+		
 		</script>
 		<script>
             $('.chosen-select').chosen();

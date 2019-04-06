@@ -29,4 +29,9 @@ public class Expense {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return "Expense [category=" + category + ", amount=" + amount + ", description=" + description + "]";
+	}
+
 }

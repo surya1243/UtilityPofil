@@ -9,6 +9,5 @@ import com.pofil.model.Branch;
 
 public interface BranchRepository extends MongoRepository<Branch, String> {
 	Branch findByBranchName(String branchName);
-	
 
 }
