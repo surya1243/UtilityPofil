@@ -122,8 +122,6 @@
 							<thead>
 								<tr>
 									<th> Fiscal Year </th>
-									<th> Branch Name </th>
-									<th> Month </th>
 									<th> Electricity </th>
 									<th> Fuel (Vehicle- 2 Wheeler)</th>
 									<th> Fuel (Vehicle-4 Wheeler)</th>
@@ -136,8 +134,6 @@
 							<tbody>
 								<tr th:each="utilityByFiscal,row:*{utilityByFiscal}">								
 									<td th:text="${utilityByFiscal?.fiscalYear}"></td>
-									<td th:text="${utilityByFiscal?.branchName}"></td>
-									<td th:text="${utilityByFiscal?.month}"></td>
 									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[0]?.amount, 1, 2,'POINT')}">test</td>									
 									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[1]?.amount, 1, 2,'POINT')}">test</td>
 									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[2]?.amount, 1, 2,'POINT')}">test</td>

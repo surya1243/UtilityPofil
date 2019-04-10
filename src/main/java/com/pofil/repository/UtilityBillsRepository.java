@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.pofil.model.UtilityBills;
 
@@ -16,4 +17,6 @@ public interface UtilityBillsRepository extends MongoRepository<UtilityBills, St
 	Optional<UtilityBills> findByMonthAndFiscalYear(String month, String fiscalYear);
 	UtilityBills findByBranchNameAndFiscalYearAndMonth(String branchName, String fiscalYear, String month);
 	
+	@Query(value = "{?0: ?1}", count = true)
+	public Long countOrderOf(String field, String value);
 }
