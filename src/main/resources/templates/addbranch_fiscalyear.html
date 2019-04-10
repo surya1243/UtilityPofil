@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>User Register Page</title>
+		<title>Add New Branch and Fiscal Years</title>
 	</head>
 	<body>
 	<div layout:fragment="content">
@@ -13,11 +13,10 @@
 					<i class="ace-icon fa fa-home home-icon"></i>
 					<a href="#">Home</a>
 				</li>
-
 				<li>
-					<a href="#">UI &amp; Elements</a>
+					<a href="#">Branch &amp; Elements</a>
 				</li>
-				<li class="active">Elements</li>
+				<li class="active">Create New Branch</li>
 			</ul><!-- /.breadcrumb -->						
 		</div>	
 		<div class="page-content">						
@@ -26,7 +25,6 @@
 					Add New Branch and Fiscal Years				
 				</h1>
 			</div><!-- /.page-header -->
-
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
@@ -40,17 +38,15 @@
 											Add New Branch
 										</a>
 									</li>
-
 									<li>
 										<a data-toggle="tab" href="#messages">
 											Add Fiscal Year											
 										</a>
 									</li>
 								</ul>
-
 							<div class="tab-content">
 								<div id="home" class="tab-pane fade in active">
-									<form th:action="@{/addbranch}" th:object="${branch}" method="POST" data-toggle="validator" role="form" >
+									<form th:action="@{/addbranch}"  method="POST" data-toggle="validator" role="form" >
 									<fieldset>
 									<div class="form-group">
 					                      <label class="block clearfix" for="branchName">Branch Name <small class="text-danger">001-Head Office</small></label>
@@ -83,7 +79,7 @@
 					                <div class="form-group">
 									    <label for="inputRemark" class="block clearfix">Remark</label>
 									      <span class="block input-icon input-icon-right">
-									         <input type="remark" class="form-control" id="inputRemark" placeholder="Remark">
+									        <input class="form-control" name ="remark" data-error="Please enter name field." id="remark" placeholder="Remarks"  type="text" required />
 									           <i class="ace-icon fa fa-lock"></i>
 					                   			 </span>          
 									         <div class="help-block with-errors"></div>
@@ -147,159 +143,7 @@
 							</div>
 						</div><!-- /.col -->	
 							<div class="vspace-6-sm"></div>
-						<div class="col-sm-8">
-						<div class="tabbable">
-							<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-								<li class="active">
-									<a data-toggle="tab" href="#home4" aria-expanded="true">Branch List</a>
-								</li>
-
-								<li class="">
-									<a data-toggle="tab" href="#profile4" aria-expanded="false">Fiscal Year List</a>
-								</li>
-							</ul>
-
-							<div class="tab-content">
-								<div id="home4" class="tab-pane active">
-						<div>
-						<table class="dynamic-table table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-									<th width="25%">Branch Name</th>									
-									<th width="25%" class="hidden-480">Branch Phone</th>									
-									<th width="10%">Action</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr th:each="branchList :${branchList}">
-									<td	th:text="${branchList?.branchName}">test</td>									
-									<td th:text="${branchList?.branchPhone}" class="hidden-480">test</td>									
-									<td>
-										<div class="hidden-sm hidden-xs action-buttons">
-											<ul id="parent">
-												<li><a class="btn btn-success"
-													th:href="@{'/updatebranch/'+${branchList.id}}"> <i
-														class="glyphicon glyphicon-pencil"></i>
-												</a></li>
-												<li>
-													<form th:action="@{/branch/delete}" th:method="delete">
-														<input type="hidden" name="id" th:value="${branchList.id}" />
-														<button class="btn btn-danger " type="submit"
-															value="Delete">
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
-														<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
-													</form>
-												</li>
-											</ul>
-										</div>
-										<div class="hidden-md hidden-lg">
-											<div class="inline pos-rel">
-												<button class="btn btn-minier btn-yellow dropdown-toggle"
-													data-toggle="dropdown" data-position="auto">
-													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-												</button>
-
-												<ul
-													class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-
-													<li><a class="btn btn-success"
-														th:href="@{'/updatebranch/'+${branchList.id}}"> <i
-															class="glyphicon glyphicon-pencil"></i>
-													</a></li>
-
-													<li>
-														<form th:action="@{/branch/delete}" th:method="delete">
-															<input type="hidden" name="id" th:value="${branchList.id}" />
-															<button class="btn btn-danger " type="submit"
-																value="Delete">
-																<span class="glyphicon glyphicon-trash"></span>
-															</button>
-															<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
-														</form>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-				<div id="profile4" class="tab-pane">
-					<div>
-						<table class="dynamic-table table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-									<th width="25%">Fiscal Year</th>									
-									<th width="25%" >Remarks</th>									
-									<th width="10%">Action</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr th:each="fiscalYearList :${fiscalYearList}">
-									<td	th:text="${fiscalYearList?.fiscalYear}">test</td>									
-									<td th:text="${fiscalYearList?.remark}">test</td>									
-									<td>
-										<div class="hidden-sm hidden-xs action-buttons">
-											<ul id="parent">
-												<li><a class="btn btn-success"
-													th:href="@{'/updatefiscalyear/'+${fiscalYearList.id}}"> <i
-														class="glyphicon glyphicon-pencil"></i>
-												</a></li>
-												<li>
-													<form th:action="@{/fiscalyear/delete}" th:method="delete">
-														<input type="hidden" name="id" th:value="${fiscalYearList.id}" />
-														<button class="btn btn-danger " type="submit"
-															value="Delete">
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
-														<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
-													</form>
-												</li>
-											</ul>
-										</div>
-										<div class="hidden-md hidden-lg">
-											<div class="inline pos-rel">
-												<button class="btn btn-minier btn-yellow dropdown-toggle"
-													data-toggle="dropdown" data-position="auto">
-													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-												</button>
-
-												<ul
-													class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-
-													<li><a class="btn btn-success"
-														th:href="@{'/updatefiscalyear/'+${fiscalYearList.id}}"> <i
-															class="glyphicon glyphicon-pencil"></i>
-													</a></li>
-
-													<li>
-														<form th:action="@{/fiscalyear/delete}" th:method="delete">
-															<input type="hidden" name="id" th:value="${fiscalYearList.id}" />
-															<button class="btn btn-danger " type="submit"
-																value="Delete">
-																<span class="glyphicon glyphicon-trash"></span>
-															</button>
-															<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
-														</form>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-								</div>
-							</div>
-						</div>
-					</div>				
+								
 					</div>
 				</div><!-- /.col -->
 			</div><!-- /.row -->
@@ -328,7 +172,7 @@
 			th:src="@{/js/dataTables.select.min.js/}"></script>
 			<script src="../static/js/jquery.maskedinput.min.js"
 			th:src="@{/js/jquery.maskedinput.min.js/}"></script>
-
+		<script src="../static/js/chosen.jquery.min.js"	th:src="@{/js/chosen.jquery.min.js/}"></script>
 		<script type="text/javascript">
 			jQuery(function($) {
 				//initiate dataTables plugin

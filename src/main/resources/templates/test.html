@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+<head>
+<meta charset="ISO-8859-1" />
+
+    <title>jQuery Validation for select option</title>
+<script type="text/javascript" href="../static/js/jquery-2.1.4.min.js"
+	th:src="@{/js/jquery-2.1.4.min.js/}"></script>
+
+</head>
+
+<body>
+<div layout:fragment="content">
+<form th:action="@{/utilityByMonth}" method="POST" data-toggle="validator" role="form" class="form-inline" id="myForm">
+<select class="fiscalYear-dropdown form-control" name="fiscalYear"  id="d2" required></select>   
+
+								    <span id="confirmMessage" class="confirmMessage"></span>
+								    
+								    <div class="input-group">                                               
+                                      <select class="chosen-select form-control" id="form-field-select-3" name="month" data-placeholder="Choose a Month..." required>
+										<option value="">  </option>
+										<option value="Shrawan">Shrawan</option>
+										<option value="Bhadra">Bhadra</option>
+										<option value="Ashoj">Ashoj</option>
+										<option value="Kartik">Kartik</option>
+										<option value="Mangsir">Mangsir</option>
+										<option value="Poush">Poush</option>
+										<option value="Magh">Magh</option>
+										<option value="Falgun">Falgun</option>
+										<option value="Chaitra">Chaitra</option>
+										<option value="Baishak">Baishak </option>
+										<option value="Jestha">Jestha</option>
+										<option value="Asar">Asar</option>					
+									</select>
+                                       
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                                   <div class="form-group">
+                                   		<button type="submit" id="submitForm" class="btn btn-purple btn-round btn-sm">
+											<i class="ace-icon fa fa-search bigger-110"></i>Search1
+										</button>
+										<div class="help-block with-errors"></div>
+									</div>	
+							
+
+</form>
+</div>
+</body>
+	<th:block layout:fragment="scripts">	
+<script>
+    $(document).ready(function () {
+        $("#submitForm").click(function () {
+        	 var message = document.getElementById('confirmMessage');
+        	 var badColor = "#ff6666";
+            var books = $('#d2');
+            console.log(books.val());
+            if (typeof(books.val()) == 'undefined' || books.val() === null) {
+               // alert("Please select an item from the list and then proceed!");
+                $('#d2').focus();
+                message.style.color = badColor;
+                message.innerHTML = "select fiscal year"
+                return false;
+            }
+            else {
+            	message.innerHTML = books.val();
+            	return;
+            }
+        });
+    });
+</script>
+	<script src="../static/js/getBranch.js" th:src="@{/js/getBranch.js/}"></script>
+	</th:block>
+</html>

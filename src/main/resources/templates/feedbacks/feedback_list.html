@@ -3,8 +3,25 @@
 	layout:decorator="layouts/default">
 <head>
 <meta charset="ISO-8859-1" />
-<title>Users List</title>
-</head>
+<title>Feedback List</title>
+
+
+<th:block layout:fragment="styles">
+			<link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    
+    <style type="text/css">
+		  td.details-control {
+		            text-align:center;
+		            color:forestgreen;
+		    cursor: pointer;
+		}
+		tr.shown td.details-control {
+		    text-align:center; 
+		    color:red;
+		}
+    </style>
+  </th:block>  
+ </head>
 <body>
 
 	<div layout:fragment="content">
@@ -13,96 +30,40 @@
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="/dashboard">Home</a>
 				</li>
 
-				<li class="active">Users list</li>
+				<li class="active">Feedback list</li>
 			</ul>
 			<!-- /.breadcrumb -->
 		</div>
 
 		<div class="page-content">
-			<div class="page-header">
-				<h1>
-					View All <small> <i
-						class="ace-icon fa fa-angle-double-right"></i> Users &amp; List
-					</small>
-				</h1>
-			</div>
-			<!-- /.page-header -->
-
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
 					
-					<div>
-						<table id="dynamic-table"
-							class="table table-striped table-bordered table-hover">
-							<thead>
-								<tr>
-									<th width="25%">Name</th>
-									<th width="25%" class="hidden-480">Email</th>
-									<th width="25%" class="hidden-480">Address</th>
-									<th width="15%" class="hidden-480">Status</th>
-									<th width="10%">Action</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<tr th:each="feedbackLists :${feedbackList}">
-									<td
-										th:text="${feedbackLists?.clientCode} + ' ' + ${userList?.lastName}">test</td>
-									<td th:text="${feedbackLists?.custName}" class="hidden-480">test</td>
-									<td th:text="${feedbackLists?.typeOfService}" class="hidden-480">test</td>
-									<td th:text="${feedbackLists?.accountNumber}" class="hidden-480">test</td>
-									<td>
-										<div class="hidden-sm hidden-xs action-buttons">
-											<ul id="parent">
-												<li><a class="btn btn-success"
-													th:href="@{'/updateuser/'+${feedbackLists.id}}"> <i
-														class="glyphicon glyphicon-pencil"></i>
-												</a></li>
-												<li>
-													<form th:action="@{/user/delete}" th:method="delete">
-														<input type="hidden" name="id" th:value="${feedbackLists.id}" />
-														<button class="btn btn-danger " type="submit"
-															value="Delete">
-															<span class="glyphicon glyphicon-trash"></span>
-														</button>
-														<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
-													</form>
-												</li>
-											</ul>
-										</div>
-										<div class="hidden-md hidden-lg">
-											<div class="inline pos-rel">
-												<button class="btn btn-minier btn-yellow dropdown-toggle"
-													data-toggle="dropdown" data-position="auto">
-													<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-												</button>
-
-												<ul
-													class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-
-													<li><a class="btn btn-success"
-														th:href="@{'/updateuser/'+${feedbackLists.id}}"> <i
-															class="glyphicon glyphicon-pencil"></i>
-													</a></li>
-
-													<li>
-														<form th:action="@{/user/delete}" th:method="delete">
-															<input type="hidden" name="id" th:value="${feedbackLists.id}" />
-															<button class="btn btn-danger " type="submit"
-																value="Delete">
-																<span class="glyphicon glyphicon-trash"></span>
-															</button>
-															<!-- <input class="btn btn-danger" type="submit" value="Delete"/> -->
-														</form>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+					<div>					
+					
+					<div class="table-header">Customer Feedback (After Service)
+					</div>
+					 <table width="100%" id="dynamic-table" 
+							class="table table-striped table-bordered table-hover" >
+				        <thead>
+				            <tr>
+				                    <th width="5%" class="detail-col"></th>
+    								<th width="15%">Date</th>
+    								<th width="15%">Branch Name</th>
+    								<th width="15%">Customer Name</th>
+    								<th width="10%">Type of Service</th>
+    								<th width="10%">Rating</th>
+    								<th width="10%" data-class='hidden'>Feedback</th>
+    								<th width="10%" data-class='hidden'>A/C Type</th>
+    								<th width="10%" data-class='hidden'>Client Code</th>
+    								<th width="10%" data-class='hidden'>A/C Number</th>
+    								<th width="10%" data-class='hidden'>Mobile</th>
+    								<th width="15%">Time Taken for Service</th>
+									<th width="15%">Collected By</th>
+				            </tr>
+				        </thead>
+				    </table>   
 					</div>
 					<!-- PAGE CONTENT ENDS -->
 				</div>
@@ -115,42 +76,157 @@
 	<!-- /.main-content -->
 
 	<th:block layout:fragment="scripts">
-		<script src="../static/js/jquery.dataTables.min.js"
-			th:src="@{/js/jquery.dataTables.min.js/}"></script>
-		<script src="../static/js/jquery.dataTables.bootstrap.min.js"
-			th:src="@{/js/jquery.dataTables.bootstrap.min.js/}"></script>
-		<script src="../static/js/dataTables.buttons.min.js"
-			th:src="@{/js/dataTables.buttons.min.js/}"></script>
-		<script src="../static/js/buttons.flash.min.js"
-			th:src="@{/js/buttons.flash.min.js/}"></script>
-		<script src="../static/js/buttons.html5.min.js"
-			th:src="@{/js/buttons.html5.min.js/}"></script>
-		<script src="../static/js/buttons.print.min.js"
-			th:src="@{/js/buttons.print.min.js/}"></script>
-		<script src="../static/js/buttons.colVis.min.js"
-			th:src="@{/js/buttons.colVis.min.js/}"></script>
-		<script src="../static/js/dataTables.select.min.js"
-			th:src="@{/js/dataTables.select.min.js/}"></script>
+		<script src="../static/js/jquery.dataTables.min.js"	th:src="@{/js/jquery.dataTables.min.js/}"></script>
+		<script src="../static/js/jquery.dataTables.bootstrap.min.js" th:src="@{/js/jquery.dataTables.bootstrap.min.js/}"></script>
+		<script src="../static/js/dataTables.buttons.min.js" th:src="@{/js/dataTables.buttons.min.js/}"></script>
+		<script src="../static/js/buttons.flash.min.js"	th:src="@{/js/buttons.flash.min.js/}"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script src="../static/js/buttons.html5.min.js"	th:src="@{/js/buttons.html5.min.js/}"></script>
+		<script src="../static/js/buttons.print.min.js"	th:src="@{/js/buttons.print.min.js/}"></script>
+		<script src="../static/js/buttons.colVis.min.js" th:src="@{/js/buttons.colVis.min.js/}"></script>
+		<script src="../static/js/dataTables.select.min.js"	th:src="@{/js/dataTables.select.min.js/}"></script>
 
-		<script type="text/javascript">
-			jQuery(function($) {
-				//initiate dataTables plugin
-				var myTable = 
-				$('#dynamic-table')
-				
-				.DataTable( {
-					bAutoWidth: false,
-					"aoColumns": [					 
-					  null, null,null, null,
-					 
-					  { "bSortable": false }
-					],
-					"aaSorting": [],				
+   
+    
+<script th:inline="javascript">
+/*<![CDATA[*/
+var testdata = /*[[${message}]]*/ 'feedback';
+console.log(testdata);
+     $(document).ready(function () {
+         var table = $('#dynamic-table').DataTable({
+             "data": testdata,
+             select:"single",
+             "columns": [
+                 {
+                     "className": 'details-control',
+                     "orderable": false,
+                     "data": null,
+                     "defaultContent": '',
+                     "render": function () {
+                         return '<i class="ace-icon fa fa-angle-double-down fa-2x" title="Show details" aria-hidden="true"></i>';
+                     },
+                     width:"15px"
+                 },
+                 { "data": "date" },
+                 { "data": "branchName" },
+                 { "data": "custName" },
+                 { "data": "typeOfService" },
+                 { "data": "rating" },
+                 { "data": "custFeedback" },
+                 { "data": "accountType" },
+                 { "data": "clientCode" },
+                 { "data": "accountNumber" },
+                 { "data": "mobileNumber" },
+                 { "data": "timeTakenForService" },
+                 { "data": "collectedBy" }
+             ],             
+             dom: 'Blfrtip',
+             buttons: [
+            	 {
+						"extend": "copy",
+						"text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
+						"className": "btn btn-white btn-primary btn-bold"
+					  },
+					  {
+						"extend": "csv",
+						"text": "<i class='fa fa-file-excel-o bigger-110 blue'></i> <span class='hidden'>Export to CSV</span>",
+						"className": "btn btn-white btn-primary btn-bold"
+					  },
+					  {
+						"extend": "excel",
+						"text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
+						"className": "btn btn-white btn-primary btn-bold",
+						"exportOptions": { modifier: { page: 'all'} }
+					  },
+					  {
+						"extend": "pdf",
+						"text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
+						"className": "btn btn-white btn-primary btn-bold",
+						"exportOptions": { modifier: { page: 'all'} }
+					  },
+					  {
+						"extend": "print",
+						"text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
+						"className": "btn btn-white btn-primary btn-bold",							
+						autoPrint: true,
+						orientation:'landscape',
+						title: 'Customer Feedback (After Service)',
+						message: 'DataTables from Utility Database'
+					  }		  
+             ]
+            
+         });
+        
+         // Add event listener for opening and closing details
+         $('#dynamic-table tbody').on('click', 'td.details-control', function () {
+             var tr = $(this).closest('tr');
+             var tdi = tr.find("i.fa");
+             var row = table.row(tr);
+
+             if (row.child.isShown()) {
+                 // This row is already open - close it
+                 row.child.hide();
+                 tr.removeClass('shown');
+                 tdi.first().removeClass('fa fa-angle-double-up fa-2x');
+                 tdi.first().addClass('fa fa-angle-double-down fa-2x');
+             }
+             else {
+                 // Open this row
+                 row.child(format(row.data())).show();
+                 tr.addClass('shown');
+                 tdi.first().removeClass('fa fa-angle-double-down fa-2x');
+                 tdi.first().addClass('fa fa-angle-double-up fa-2x');
+             }
+         });
+
+         table.on("user-select", function (e, dt, type, cell, originalEvent) {
+             if ($(cell.node()).hasClass("details-control")) {
+                 e.preventDefault();
+             }
+         });
+     });
+
+    function format(d){
+        
+         // `d` is the original data object for the row
+         return '<table class="table table-striped table-bordered table-hover">' +
+             '<tr>' +
+                 '<td width="15%"><strong>Customer Feedback: </strong></td>' +
+                 '<td>' + d.custFeedback + '</td>' +
+             '</tr>' +
+             '<tr>' +
+                 '<td width="15%"><strong>Account Type: </strong></td>' +
+                 '<td>' + d.accountType + '</td>' +
+             '</tr>' +
+             '<tr>' +
+	             '<td width="15%"><strong>Client Code: </strong></td>' +
+	             '<td>' + d.clientCode + '</td>' +
+	         '</tr>' +
+	         '<tr>' +
+		         '<td width="15%"><strong>Account Number: </strong></td>' +
+		         '<td>' + d.accountNumber + '</td>' +
+		     '</tr>' +
+		     '<tr>' +
+		         '<td width="15%"><strong>Mobile Number: </strong></td>' +
+		         '<td>' + d.mobileNumber + '</td>' +
+		     '</tr>' +
+		     '<tr>' +
+			     '<td width="15%"><strong>Telephone Number: </strong></td>' +
+			     '<td>' + d.telNumber + '</td>' +
+			 '</tr>' +
+         '</table>';  
+    }
+
+
+
+    /*]]>*/ 
+    
+    
+    
+ 
+    
+</script>
 					
-			    
-			});
-			})
-		</script>
 	</th:block>
 
 </body>

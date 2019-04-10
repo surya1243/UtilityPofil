@@ -14,14 +14,14 @@ public class Branch {
     private boolean enabled;
     private String remark;
     
-    protected Branch() {
+    public Branch() {
     	
     }
     
     
+	
 	public Branch(String id, String branchName, String branchAddress, String branchPhone, boolean enabled,
 			String remark) {
-		super();
 		this.id = id;
 		this.branchName = branchName;
 		this.branchAddress = branchAddress;
@@ -29,6 +29,7 @@ public class Branch {
 		this.enabled = enabled;
 		this.remark = remark;
 	}
+
 
 
 	public String getId() {
@@ -56,6 +57,8 @@ public class Branch {
 		this.branchPhone = branchPhone;
 	}
 	
+
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -69,6 +72,11 @@ public class Branch {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}     
-    
+	}
+
+	@Override
+	public String toString() {
+		return "Branch [id=" + id + ", branchName=" + branchName + ", branchAddress=" + branchAddress + ", branchPhone="
+				+ branchPhone + ", enabled=" + enabled + ", remark=" + remark + "]";
+	}
 }

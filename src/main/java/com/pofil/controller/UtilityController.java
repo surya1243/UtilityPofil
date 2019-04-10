@@ -2,6 +2,7 @@ package com.pofil.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import com.pofil.service.UtilityDetailService;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,10 +85,9 @@ public class UtilityController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/utilitylist", method = RequestMethod.GET)
 	public String getUtilityList(Model model) {
-		List<UtilityBills> branchList = utilityBillsRepository.findAll();
-		List<FiscalYear> fiscalYearList = fiscalYearRepository.findAll();
-		model.addAttribute("branchList", branchList);
-		model.addAttribute("fiscalYears", fiscalYearList);
+		List<UtilityBills> utilityBillsFiscal = utilityDetailService.findByFiscalYear(Sort.by(Sort.Direction.ASC, "fiscalYear"));
+		System.err.println(utilityBillsFiscal);
+		model.addAttribute("utilityByFiscal", utilityBillsFiscal);
 		return "utility/utilitylist";
 	}
 
@@ -99,15 +100,25 @@ public class UtilityController {
 	
 	@RequestMapping(value="/utilityByMonth", method=RequestMethod.POST)
 	public String getUtilityDetailByMonth(Model model, @RequestParam("fiscalYear") String fiscalYear , @RequestParam("month") String month) {
-		Optional<UtilityBills> utilityBillsMonth = utilityBillsRepository.findByMonthAndFiscalYear(month, fiscalYear);
-		model.addAttribute("searchListMonth", utilityBillsMonth.get());	
+		try {
+			Optional<UtilityBills> utilityBillsMonth = utilityBillsRepository.findByMonthAndFiscalYear(month, fiscalYear);
+			model.addAttribute("searchListMonth", utilityBillsMonth.get());
+		} catch(Exception e){
+			System.err.println("error");
+			model.addAttribute("message", "Could not find the result");
+		}		
 		return "utility/utilitylist";
 		}
 	
 	@RequestMapping(value="/utilityByBranch", method=RequestMethod.POST)
 	public String getUtilityDetailByBranch(Model model, @RequestParam("fiscalYear") String fiscalYear , @RequestParam("branchName") String branchName) {
-		Optional<UtilityBills> utilityBillsBranch = utilityBillsRepository.findByBranchNameAndFiscalYear(branchName, fiscalYear);
-		model.addAttribute("searchList", utilityBillsBranch.get());
+		try{
+			Optional<UtilityBills> utilityBillsBranch = utilityBillsRepository.findByBranchNameAndFiscalYear(branchName, fiscalYear);
+			model.addAttribute("searchList", utilityBillsBranch.get());
+		}catch(Exception e){
+			System.err.println("error");
+			model.addAttribute("message", "Could not find the result");
+		}	
 		return "utility/utilitylist";
 		}
 	

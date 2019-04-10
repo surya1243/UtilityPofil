@@ -3,6 +3,7 @@ package com.pofil.service;
 import com.pofil.model.Feedback;
 import com.pofil.repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +27,8 @@ public class FeedbackDetailServiceImpl implements FeedbackDetailService {
     }
 
     @Override
-    public List<Feedback> getallFeedbacks() {
-        return feedbackRepository.findAll();
+    public List<Feedback> findByDate(Sort sort) {
+        return feedbackRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
     }
 
     @Override

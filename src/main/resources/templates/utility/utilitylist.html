@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
 <head>
 <meta charset="ISO-8859-1" />
-<title>Utility Expenses</title>
+<title>Utility Reports</title>
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 				<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a>
 				</li>
 
-				<li class="active">Utility Expenses</li>
+				<li class="active">Utility Reports</li>
 			</ul>
 			<!-- /.breadcrumb -->
 		</div>
@@ -21,7 +21,9 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
-					
+					<div th:if="${message}">
+								<h2 class="alert alert-danger" th:text="${message}"/>
+							</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="search-area well well-sm">
 								<div class="search-filter-header bg-primary">
@@ -31,22 +33,17 @@
 								</div>
 								<div class="space-10"></div>
 
-							<form th:action="@{/utilityByMonth}" th:object="${utility}" method="POST" data-toggle="validator" role="form" class="form-inline" >
+							<form th:action="@{/utilityByMonth}" th:object="${utility}" method="POST" data-toggle="validator" role="form" class="form-inline" id="myForm">
 								<div class="input-group">  
 								
-								<select class="fiscalYear-dropdown form-control" name="fiscalYear"  required></select>                                             
-                                       <!--  <select class="chosen-select form-control" id="fiscalYear" name="fiscalYear" data-placeholder="Choose a Fiscal Year..."
-                                               required>
-                                           <option value="">  </option>
-                                           <option th:each="fiscalYears : ${fiscalYears}"
-													th:value="${fiscalYears.fiscalYear}"
-													th:text="${fiscalYears.fiscalYear}"></option>
-                                       </select> -->
+								<select class="fiscalYear-dropdown form-control" name="fiscalYear"  id="d1" required></select>   
+								                                          
                                        <div class="help-block with-errors"></div>
                                    </div>
                                    
+                                   
                                    <div class="input-group">                                               
-                                      <select class="chosen-select form-control" id="form-field-select-3" name="month" data-placeholder="Choose a Month..." required>
+                                      <select class="chosen-select form-control" name="month" data-placeholder="Choose a Month..." required>
 										<option value="">  </option>
 										<option value="Shrawan">Shrawan</option>
 										<option value="Bhadra">Bhadra</option>
@@ -65,11 +62,11 @@
                                        <div class="help-block with-errors"></div>
                                    </div>
                                    <div class="form-group">
-                                   		<button type="submit" class="btn btn-purple btn-round btn-sm">
+                                   		<button type="submit" id="submitForm" class="btn btn-purple btn-round btn-sm">
 											<i class="ace-icon fa fa-search bigger-110"></i>Search
 										</button>
 										<div class="help-block with-errors"></div>
-									</div>	
+									</div>	<br/><span id="confirmMessage" class="confirmMessage"></span>
 							</form>
 						</div>
 					</div>
@@ -84,35 +81,20 @@
 								<div class="space-10"></div>								
 							<form th:action="@{/utilityByBranch}" th:object="${utility}" method="POST" data-toggle="validator" role="form" class="form-inline" >
 								<div class="input-group"> 
-								<select class="fiscalYear-dropdown form-control" name="fiscalYear"  required></select>                                               
-                                       <!-- <select class="chosen-select form-control" id="fiscalYear" name="fiscalYear" data-placeholder="Choose a Fiscal Year..."
-                                               required>
-                                           <option value="">  </option>
-                                           <option th:each="fiscalYears : ${fiscalYears}"
-													th:value="${fiscalYears.fiscalYear}"
-													th:text="${fiscalYears.fiscalYear}"></option>
-                                       </select> -->
+								<select class="fiscalYear-dropdown form-control" id="d2" name="fiscalYear" required></select>                                               
                                        <div class="help-block with-errors"></div>
                                    </div>
                                    
                                    <div class="input-group">
-                                   <select class="form-control" id="branchName-dropdown" name="branchName"  required></select>                                               
-                                       <!-- <select class="chosen-select form-control" id="branchName" name="branchName" data-placeholder="Choose a Branch..."
-                                               required>
-                                           <option value="">  </option>
-                                           <option th:each="branchLists : ${branchList}"
-													th:value="${branchLists.branchName}"
-													th:text="${branchLists.branchName}"></option>
-                                       </select> -->
-                                       
+                                   <select class="form-control" id="branchName-dropdown" name="branchName" required></select>                                           
                                        <div class="help-block with-errors"></div>
                                    </div>
                                    <div class="form-group">
-                                   		<button type="submit" class="btn btn-purple btn-round btn-sm">
+                                   		<button type="submit" id="submitForm2" class="btn btn-purple btn-round btn-sm">
 											<i class="ace-icon fa fa-search bigger-110"></i>Search
 										</button>
 										<div class="help-block with-errors"></div>
-									</div>	
+									</div>	<br/><span id="confirmMessage2" class="confirmMessage"></span>
 							</form>
 
 							
@@ -126,6 +108,52 @@
 			</div>
 			<!-- /.row -->
 			<div class="hr hr-4"></div>
+			<div th:if="${utilityByFiscal != null}" class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+					<div class="clearfix">
+						<div class="pull-right tableTools-container"></div>
+					</div>
+					<div class="table-header">Results for "Fiscal Year"
+					</div>
+					<div>
+						<table id="dynamic-table"
+							class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th> Fiscal Year </th>
+									<th> Branch Name </th>
+									<th> Month </th>
+									<th> Electricity </th>
+									<th> Fuel (Vehicle- 2 Wheeler)</th>
+									<th> Fuel (Vehicle-4 Wheeler)</th>
+									<th> Fuel (Genset)</th>
+									<th> Telephone </th>
+									<th> Maintenance </th>
+									<th> Total (Rs.)</th>									
+								</tr>								
+							</thead>
+							<tbody>
+								<tr th:each="utilityByFiscal,row:*{utilityByFiscal}">								
+									<td th:text="${utilityByFiscal?.fiscalYear}"></td>
+									<td th:text="${utilityByFiscal?.branchName}"></td>
+									<td th:text="${utilityByFiscal?.month}"></td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[0]?.amount, 1, 2,'POINT')}">test</td>									
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[1]?.amount, 1, 2,'POINT')}">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[2]?.amount, 1, 2,'POINT')}">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[3]?.amount, 1, 2,'POINT')}">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[4]?.amount, 1, 2,'POINT')}">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[5]?.amount, 1, 2,'POINT')}">test</td>									
+									<td><strong th:text="${#numbers.formatDecimal((utilityByFiscal?.expense[0]?.amount+utilityByFiscal?.expense[1]?.amount+utilityByFiscal?.expense[2]?.amount+utilityByFiscal?.expense[3]?.amount+utilityByFiscal?.expense[4]?.amount+utilityByFiscal?.expense[5]?.amount), 1, 2,'POINT')}"
+									></strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- PAGE CONTENT ENDS -->
+				</div>
+				<!-- /.col -->
+			</div>
 			<div th:if="${searchListMonth!= null}" class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
@@ -170,9 +198,6 @@
 				</div>
 				<!-- /.col -->
 			</div>
-			
-		
-			
 			<div th:if="${searchList != null}" class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
@@ -233,7 +258,46 @@
 		<script src="../static/js/dataTables.select.min.js"	th:src="@{/js/dataTables.select.min.js/}"></script>
 		<script src="../static/js/chosen.jquery.min.js"	th:src="@{/js/chosen.jquery.min.js/}"></script>
 		<script src="../static/js/getBranch.js" th:src="@{/js/getBranch.js/}"></script>
+		<script>
+    $(document).ready(function () {
+        $("#submitForm").click(function () {
+        	 var message = document.getElementById('confirmMessage');
+        	 var badColor = "#ff6666";
+            var fiscal = $('#d1');
+            console.log(fiscal.val());
+            if (typeof(fiscal.val()) == 'undefined' || fiscal.val() === null) {
+                message.style.color = badColor;
+                message.innerHTML = "*Please choose Fiscal Year"
+                return false;
+            }
+            else{
+            	message.innerHTML = fiscal.val();
+            	return;
+            }
+        });
+        $("#submitForm2").click(function () {
+       	 var message2 = document.getElementById('confirmMessage2');
+       	 var badColor = "#ff6666";
+           var fiscal2 = $('#d2');
+           var branch = $('#branchName-dropdown');
+           console.log(branch.val());
+           if (typeof(fiscal2.val()) == 'undefined' || fiscal2.val() === null) {
+               message2.style.color = badColor;
+               message2.innerHTML = "*Please choose Fiscal Year"
+               return false;
+           }
+           else if (typeof(branch.val()) == 'undefined' || branch.val() === null) {
+               message2.style.color = badColor;
+               message2.innerHTML = "*Please choose Branch"
+               return false;
+           }
+           else return;
+       });
+    });
+</script>
+
 		
+</script>
     <script>
    $('.chosen-select').chosen();    
    $(window)
@@ -245,8 +309,8 @@
 		})
 	}).trigger('resize.chosen');  
     </script>
-
-		<script type="text/javascript">
+    
+ 		<script type="text/javascript">
 			jQuery(function($) {
 				//initiate dataTables plugin
 				var myTable = 
@@ -315,6 +379,8 @@
 				
 			})
 		</script>
+
+		
 	</th:block>
 
 </body>

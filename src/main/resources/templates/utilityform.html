@@ -39,7 +39,7 @@
 		
     <div class="row clearfix">
     	<div class="col-xs-12 table-responsive">
-			<form th:object="${branch}" method="POST" th:action="@{/bill/submit}" >
+			<form th:object="${branch}" method="POST" th:action="@{/bill/submit}" id="myform">
 				<input
 				  type="hidden"
 				  th:name="${_csrf.parameterName}"
@@ -50,20 +50,19 @@
 			<div>
 				<label for="form-field-select-1">Branch</label>
 				<br />
-				<select class="form-control" id="branchName-dropdown" name="branchName"  required></select>
-				
-				<!-- <select class="chosen-select form-control" id="branchName-dropdown" name="branchName" data-placeholder="Choose Branch..." required>
+	
+				<select class="chosen-select form-control" id="branchName" name="branchName" data-placeholder="Choose Branch..." required>
 					<option value="">  </option>
 					<option th:each="branches : ${branchLists}"
 							th:value="${branches.branchName}"
 							th:text="${branches.branchName}"></option>
-				</select> -->
+				</select>
 			</div>	
 			<hr />
 			<div>
 				<label for="form-field-select-2">Fiscal Year</label>
 				<br />
-				<select class="chosen-select form-control" id="form-field-select-2" name="fiscalYear" data-placeholder="Choose Fiscal Year..." required>
+				<select class="chosen-select form-control" id="fiscalYear" name="fiscalYear" data-placeholder="Choose Fiscal Year..." required>
 					<option value="">  </option>
 					<option th:each="year : ${fiscalYears}"
 							th:value="${year.fiscalYear}"
@@ -75,7 +74,7 @@
 			<div>
 				<label for="form-field-select-3">Month</label>
 				<br />
-				<select class="chosen-select form-control" id="form-field-select-3" name="month" data-placeholder="Choose a Month..." required>
+				<select class="chosen-select form-control" id="month" name="month" data-placeholder="Choose a Month..." required>
 					<option value="">  </option>
 					<option value="Shrawan">Shrawan</option>
 					<option value="Bhadra">Bhadra</option>
@@ -90,7 +89,10 @@
 					<option value="Jestha">Jestha</option>
 					<option value="Asar">Asar</option>					
 				</select>
-			</div>	
+			</div>
+			<hr />	
+			<div ><p></p>											
+			</div>
 													
 		</div>		  
 		<div class="col-xs-9">								  
@@ -115,7 +117,7 @@
 						    Electricity Expenses
 						</td>
 						<td data-name="mail">
-						    <input type="number"  placeholder="0.00" min="0" step="any" 
+						    <input type="number"  id="idElectricity" placeholder="0.00" min="0" step="any" 
 						    pattern="^\d+(?:\.\d{1,2})?$" 
 						    onblur="this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'" 
 						    name='amount' class="form-control" required/>
@@ -209,15 +211,9 @@
 			</table>
 			<div class="clearfix form-actions">
 				<div class="col-md-offset-4 col-md-8">
-					<button class="btn btn-primary" type="submit" value="Upload" >
+					<button class="btn btn-primary" type="submit" id="submit" value="Upload" >
 						<i class="ace-icon fa fa-check bigger-110"></i>
 						Submit
-					</button>
-
-					&nbsp; &nbsp; &nbsp;
-					<button class="btn" type="reset">
-						<i class="ace-icon fa fa-undo bigger-110"></i>
-						Reset
 					</button>
 				</div>
 			</div>
@@ -233,7 +229,7 @@
    
    
     <th:block layout:fragment="scripts">
-     <script src="../static/js/getBranch.js" th:src="@{/js/getBranch.js/}"></script>
+    <script src="../static/js/check.js" th:src="@{/js/check.js/}"></script>
     <script src="../static/js/autosize.min.js" th:src="@{/js/autosize.min.js/}"></script>
     <script src="../static/js/chosen.jquery.min.js"	th:src="@{/js/chosen.jquery.min.js/}"></script>
     <script>
@@ -252,7 +248,22 @@
 	<script>
 		autosize(document.querySelectorAll('textarea'));
 	</script>
-	
+	</script>
+			<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+</script>
+
+			<script type="text/javascript">
+		$(document).ready(function(){
+			$("#myform").submit(function(){
+				if ($("#branchName").val() != '') {
+				return confirm("Are you sure?");
+				}
+			});
+		});
+</script>
 	 
 	
     </th:block>

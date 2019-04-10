@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pofil.model.FiscalYear;
@@ -11,6 +12,7 @@ import com.pofil.repository.BranchRepository;
 import com.pofil.repository.FiscalYearRepository;
 @Service
 public class FiscalYearDetailServiceImpl implements FiscalYearDetailService {
+	
 	private FiscalYearRepository fiscalYearRepository;
 	
 	@Autowired
@@ -31,7 +33,7 @@ public class FiscalYearDetailServiceImpl implements FiscalYearDetailService {
 
 	@Override
 	public List<FiscalYear> getAllFiscalYear() {
-		return fiscalYearRepository.findAll();
+		return fiscalYearRepository.findAll(Sort.by(Sort.Direction.DESC, "fiscalYear"));
 	}
 
 	@Override

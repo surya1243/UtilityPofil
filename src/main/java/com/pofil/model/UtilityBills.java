@@ -61,4 +61,10 @@ public class UtilityBills {
 		this.expense = expense;
 	}
 
+	@Override
+	public String toString() {
+		return "UtilityBills [id=" + id + ", branchName=" + branchName + ", fiscalYear=" + fiscalYear + ", month="
+				+ month + ", expense=" + expense + "]";
+	}
+
 }

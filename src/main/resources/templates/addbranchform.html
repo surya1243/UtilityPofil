@@ -23,79 +23,48 @@
 						<div class="login-container">
 							
 	
-					<div class="position-relative">
-								
-								<div id="signup-box" class="signup-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header green lighter bigger">
-												<i class="ace-icon fa fa-users blue"></i>
-												New Branch Registration
-											</h4>
-
-
-								<form th:action="@{/addbranch}" th:object="${branch}" method="POST" data-toggle="validator" role="form" >
+					<div id="messages" >
+									<form th:action="@{/addtestbranch}" th:object="${branch}" method="POST"  role="form" >
 									<fieldset>
 									<div class="form-group">
-					                      <label class="block clearfix" for="branchName">Branch Name</label>
+					                      <label class="block clearfix" for="branchName">Fiscal Year <small class="text-danger">2075/76</small></label>
 					                      <span class="block input-icon input-icon-right">
-					                      <input class="form-control" pattern="^\(?([0-9]{3})\)?[-. ]?([a-z]{3,30})$" 
-						    onblur="this.parentNode.parentNode.style.backgroundColor=/^\(?([0-9]{3})\)[-]([a-z]{3,30})$/.test(this.value)?'inherit':'red'" name ="branchName" data-error="Please enter name field." id="branchName" placeholder="Branch Name"  type="text" required />
-					                      <i class="ace-icon fa fa-user"></i>
+					                      <input class="form-control" name ="branchName" data-error="Please enter fiscal year." id="fiscalYear" placeholder="Fiscal Year"  type="text" required />
+					                      <i class="ace-icon fa fa-calendar"></i>
 						                    </span>
 					                      <div class="help-block with-errors"></div>
 				                  	</div>
+				                  	
+				                  	<input class="form-control " name ="branchAddress" data-error="Please enter fiscal year." id="fiscalYear" placeholder="Fiscal Year"  type="text" required />
+				                  	
+				                  	<input class="form-control " name ="branchPhone" data-error="Please enter fiscal year." id="fiscalYear" placeholder="Fiscal Year"  type="text" required />
+				                  	
+				                  	
 									<div class="form-group">
-				                      <label class="block clearfix" for="branchAddress">Branch Address</label>
+				                      <label class="block clearfix" for="remark">Remarks</label>
 				                      <span class="block input-icon input-icon-right">
-				                      <input class="form-control" name ="branchAddress" data-error="Please enter name field." id="branchAddress" placeholder="Branch Address"  type="text" required />
+				                      <input class="form-control" name ="remark" data-error="Please enter name field." id="remark" placeholder="Remarks"  type="text" required />
 				                       <i class="ace-icon fa fa-user"></i>
 						               </span>
 				                      <div class="help-block with-errors"></div>
-				                   </div>			
-									<div class="form-group">
-					                    <label for="branchPhone" class="block clearfix">Branch Phone</label>
-					                    <span class="block input-icon input-icon-right">
-					                    <input type="text" pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$" 
-						    onblur="this.parentNode.parentNode.style.backgroundColor=/^\(?([0-9]{3})\)?[-. ]?([0-9]{6})$/.test(this.value)?'inherit':'red'" class="form-control" id="branchPhone"  name ="branchPhone" placeholder="Branch Phone" required/>
-					                    <i class="ace-icon fa fa-envelope"></i>
-					                    </span>
-					                    <div class="help-block with-errors"></div>
-					                </div>
-					                
-					                <div class="form-group">
-									    <label for="inputRemark" class="block clearfix">Remark</label>
-									      <span class="block input-icon input-icon-right">
-									         <input type="remark" class="form-control" id="inputRemark" placeholder="Remark">
-									           <i class="ace-icon fa fa-lock"></i>
-					                   			 </span>          
-									         <div class="help-block with-errors"></div>
-									 </div>
-	
+				                   </div>							
+									<div class="space-10"></div>
 
-													<div class="space-10"></div>
+									<div class="clearfix">
+										<button type="reset" class="width-30 pull-left btn btn-sm">
+											<i class="ace-icon fa fa-refresh"></i> <span
+												class="bigger-110">Reset</span>
+										</button>
 
-													<div class="clearfix">
-														<button type="reset" class="width-30 pull-left btn btn-sm">
-															<i class="ace-icon fa fa-refresh"></i> <span
-																class="bigger-110">Reset</span>
-														</button>
-
-														<button type="submit"
-															class="width-65 pull-right btn btn-sm btn-success">
-															<span class="bigger-110">Register</span> <i
-																class="ace-icon fa fa-arrow-right icon-on-right"></i>
-														</button>
-													</div>
-												</fieldset>
-											</form>
-										</div>
-
-										
-									</div><!-- /.widget-body -->
-								</div><!-- /.signup-box -->
-							</div><!-- /.position-relative -->
-
+										<button type="submit"
+											class="width-65 pull-right btn btn-sm btn-success">
+											<span class="bigger-110">Submit</span> <i
+												class="ace-icon fa fa-arrow-right icon-on-right"></i>
+										</button>
+									</div>
+										</fieldset>
+									</form>
+									</div>
 							
 						</div>
 					</div><!-- /.col -->

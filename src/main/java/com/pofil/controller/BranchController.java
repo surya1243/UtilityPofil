@@ -26,7 +26,9 @@ import com.pofil.model.Branch;
 import com.pofil.model.FiscalYear;
 import com.pofil.repository.BranchRepository;
 import com.pofil.repository.FiscalYearRepository;
+import com.pofil.service.BranchDetailService;
 import com.pofil.service.BranchDetailServiceImpl;
+import com.pofil.service.FiscalYearDetailService;
 import com.pofil.service.FiscalYearDetailServiceImpl;
 
 @Controller
@@ -40,10 +42,10 @@ public class BranchController {
 	private FiscalYearRepository fiscalYearRepository;
 	
 	@Autowired
-	private BranchDetailServiceImpl branchService;
+	private BranchDetailService branchService;
 	
 	@Autowired
-	private FiscalYearDetailServiceImpl fiscalYearService;
+	private FiscalYearDetailService fiscalYearService;
 	
 	@RequestMapping(value = "/demo", method = RequestMethod.GET)
 	public String getDemo(HttpServletRequest request, Model model) {		
@@ -56,19 +58,17 @@ public class BranchController {
 	
 	@RequestMapping(value = "/addbranch", method = RequestMethod.GET)
 	public String getDefault(HttpServletRequest request, Model model) {
-		List<Branch> branchList = branchRepository.findAll();
-		List<FiscalYear> fiscalYearList = fiscalYearRepository.findAll();
+		List<Branch> branchList = branchService.getAllBranch();
+		List<FiscalYear> fiscalYearList = fiscalYearService.getAllFiscalYear();
 		model.addAttribute("branchList", branchList);
 		model.addAttribute("fiscalYearList", fiscalYearList);
 		return "addbranch_fiscalyear";
-		
 	}
-	
 	
 	@RequestMapping(value = "/addbranch", method = RequestMethod.POST)
 	public ModelAndView saveBranchDetail(Branch branch, BindingResult bindingResult) {
 		ModelAndView modelView = new ModelAndView();
-		Branch branchExists = branchService.getBranchByName(branch.getBranchName());
+		Branch branchExists = branchRepository.findByBranchName(branch.getBranchName());
 		if (branchExists != null) {
 			bindingResult.rejectValue("branchName", "error.branch",
 					"There is already a branch registered with the brnach name provided");
@@ -79,9 +79,18 @@ public class BranchController {
 		} else {
 			branch.setId(generateUniqueId());
 			branchService.saveBranch(branch);
-			modelView.setViewName("register");
+			modelView.setViewName("addbranch_fiscalyear");
 		}
 		return modelView;
+	}
+	
+	@RequestMapping(value = "/branchdetail", method = RequestMethod.GET)
+	public String getBranchDetail(HttpServletRequest request, Model model) {
+		List<Branch> branchList = branchService.getAllBranch();
+		List<FiscalYear> fiscalYearList = fiscalYearService.getAllFiscalYear();
+		model.addAttribute("branchList", branchList);
+		model.addAttribute("fiscalYearList", fiscalYearList);
+		return "branchlist";
 	}
 	
 	@RequestMapping(value = "/addfiscalyear", method = RequestMethod.POST)
