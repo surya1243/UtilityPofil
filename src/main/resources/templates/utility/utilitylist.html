@@ -133,13 +133,13 @@
 							</thead>
 							<tbody>
 								<tr th:each="utilityByFiscal,row:*{utilityByFiscal}">								
-									<td th:text="${utilityByFiscal?.fiscalYear}"></td>
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[0]?.amount, 1, 2,'POINT')}">test</td>									
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[1]?.amount, 1, 2,'POINT')}">test</td>
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[2]?.amount, 1, 2,'POINT')}">test</td>
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[3]?.amount, 1, 2,'POINT')}">test</td>
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[4]?.amount, 1, 2,'POINT')}">test</td>
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[5]?.amount, 1, 2,'POINT')}">test</td>									
+									<td th:text="${utilityByFiscal?.fiscalYear}" onload="computeExpenseSum('Electricity Expenses')"></td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[0]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Electricity Expenses')">test</td>									
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[1]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Fuel Expenses  (Vehicle- 2 Wheeler)')">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[2]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Fuel Expenses (Vehicle-4 Wheeler)')">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[3]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Fuel Expenses (Genset)')">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[4]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Telephone Expenses')">test</td>
+									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[5]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Maintenance Expenses')">test</td>									
 									<td><strong th:text="${#numbers.formatDecimal((utilityByFiscal?.expense[0]?.amount+utilityByFiscal?.expense[1]?.amount+utilityByFiscal?.expense[2]?.amount+utilityByFiscal?.expense[3]?.amount+utilityByFiscal?.expense[4]?.amount+utilityByFiscal?.expense[5]?.amount), 1, 2,'POINT')}"
 									></strong></td>
 								</tr>
