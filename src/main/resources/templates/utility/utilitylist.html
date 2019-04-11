@@ -378,27 +378,23 @@
 		
 		<script th:inline="javascript">
 		 $(document).ready(function(){
-		var utilityData, category, i, len, j;
-		let cat;
+		var utilityByFiscalYear;
 		/*<![CDATA[*/
-		utilityData = /*[[${utilityByFiscal}]]*/ 'UtilityByfiscalyear';	
-		len=utilityData.length;
-		console.log(len);
+		utilityByFiscalYear = /*[[${utilityByFiscal}]]*/ 'UtilityByfiscalyear';	
 	    /*]]>*/ 
-	    
-		   /*  function computeExpenseSum(category)
-				{
-				  let sum = 0;
-				  utilityByFiscalYear.forEach((utility) =>{
-				  utility.expense.forEach((expense) => {
-				      if(expense.category === category)
-				      sum=sum+expense.amount;
-				    });
-				  return sum;
-				  });
-				 
-				} */
 		 });
+		 
+		 function computeExpenseSum(category)
+			{
+			  let sum = 0;
+			  utilityByFiscalYear.forEach((utility) =>{
+			  utility.expense.forEach((expense) => {
+			      if(expense.category === category)
+			      sum=sum+expense.amount;
+			    });
+			  });
+			  return sum;
+			} 
 		</script>
 
 		
