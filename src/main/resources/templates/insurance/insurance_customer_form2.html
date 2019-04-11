@@ -30,8 +30,87 @@
 
                                     <form data-toggle="validator" method="POST" role="form"
                                           th:action="@{/addinscust}" th:object="${insuranceCustomer}">
-                                        <div class="col-sm-6">
-                                            <fieldset>
+                                        <div class="col-sm-4">
+<fieldset>
+                                                <div class="form-group">
+                                                    <label class="block clearfix" for="inputCode">Client Code</label>
+                                                    <span class="block input-icon input-icon-right">
+                                                      <input class="form-control" data-error="Please enter code field."
+                                                             id="inputCode" name="clientCode"
+                                                             placeholder="Client Code(8 digit)" required type="number"/>
+                                                      <i class="ace-icon fa fa-user"></i>
+                                                    </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="block clearfix" for="nameAcc">Bank Acoount
+                                                        Number</label>
+                                                    <span class="block input-icon input-icon-right">
+				                      <input class="form-control" data-error="Please Account Number field."
+                                             id="nameAcc" name="bankAccNo"
+                                             placeholder="Bank Acoount Number" required type="number"/>
+				                       <i class="ace-icon fa fa-user"></i>
+						               </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="block clearfix" for="inputCName">Client Name</label>
+                                                    <span class="block input-icon input-icon-right">
+					                      <input class="form-control" data-error="Please enter name field."
+                                                 id="inputCName" name="clientName"
+                                                 placeholder="Client Name" required type="text"/>
+					                      <i class="ace-icon fa fa-user"></i>
+						                    </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="block clearfix" for="inputEmail">Email</label>
+                                                    <span class="block input-icon input-icon-right">
+					                    <input class="form-control" id="inputEmail" name="clientEmail" placeholder="Email"
+                                               required type="email"/>
+					                    <i class="ace-icon fa fa-envelope"></i>
+					                    </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                               
+
+                                                <div class="form-group">
+                                                    <label class="block clearfix" for="tel">Telephone Number</label>
+                                                    <span class="block input-icon input-icon-right">
+				                      <input class="form-control" data-error="Please enter valid telephone number field."
+                                             id="tel" name="clientTel"
+                                             placeholder="Telephone Number" type="tel"/>
+				                       <i class="ace-icon fa fa-user"></i>
+						               </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+<div class="form-group">
+                                                    <label class="block clearfix" for="inputCitz">Citizenship/ID
+                                                        Number</label>
+                                                    <span class="block input-icon input-icon-right">
+									        <input class="form-control" id="inputCitz" name="citizenIdNo" placeholder="Citizenship or ID Number"
+                                                   required type="text">
+									        <i class="ace-icon fa fa-retweet"></i>
+					                    </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+ <div class="form-group">
+                                                    <label class="block clearfix" for="inputFatherName">Father's
+                                                        Name</label>
+                                                    <span class="block input-icon input-icon-right">
+					                      <input class="form-control" data-error="Please enter father name field."
+                                                 id="inputFatherName" name="fatherName"
+                                                 placeholder="Father's Name" required type="text"/>
+					                      <i class="ace-icon fa fa-user"></i>
+						                    </span>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                            </fieldset>
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                             <fieldset>
                                                 <div class="form-group">
                                                     <label class="block clearfix" for="inputCode">Insurance Company Name</label>
                                                     <select class="form-control" id="insCompanyCode" name="insCompanyCode"
@@ -119,11 +198,19 @@
 
 
                                             </fieldset>
-
-                                        </div>
-
-                                        <div class="col-sm-6">
+                                            </div>
+                                            <div class="col-sm-4">
                                             <fieldset>
+                                            <div class="form-group">
+                                                    <label class="block clearfix" for="inputstatus">Insurance Status</label>
+                                                     <select class="form-control" id="inputstatus" name="insuranceStatus" required>
+                                                        <option selected value=""> Please Select Insurance Status Type...
+                                                        </option>
+                                                        <option value="Open">Open</option>
+                                                        <option value="Closed">Closed</option>
+                                                    </select>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label class="block clearfix" for="inputMobile">Insured Amount</label>
                                                     <span class="block input-icon input-icon-right">
@@ -207,6 +294,7 @@
                                                     </button>
                                                 </div>
                                             </fieldset>
+                                            </div>
                                     </form>
                                 </div>
 

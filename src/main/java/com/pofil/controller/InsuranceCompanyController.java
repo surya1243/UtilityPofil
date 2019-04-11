@@ -72,8 +72,8 @@ public class InsuranceCompanyController {
 		return "insurance/insurance_customer_list";
 	}
 
-	@RequestMapping(value = "/inscustform2", method = RequestMethod.GET)
-	public String getInsCustomerForm(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/inscustform2/{id}", method = RequestMethod.GET)
+	public String getInsCustomerForm(HttpServletRequest request, Model model, @PathVariable String id) {
 		List<InsuranceCompany> insuranceCompanyList = repo.findAll();
 		List<InsuranceSchema> insuranceSchemaList = schemaRepository.findAll();
 		List<InsuranceCustomer> insuranceCustomerList = insuranceCustomerRepository.findAll();
