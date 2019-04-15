@@ -78,7 +78,8 @@ public class TestController {
 	
 	@RequestMapping(value = "/api/getutility", method = RequestMethod.GET)
 	public List<UtilityBills>  getApiUtility() {
-		List<UtilityBills> utilityListApi = utilityDetailService.findByFiscalYear(Sort.by(Sort.Direction.ASC, "fiscalYear"));
+		//List<UtilityBills> utilityListApi = utilityDetailService.findByFiscalYear(Sort.by(Sort.Direction.ASC, "fiscalYear"));
+		List<UtilityBills> utilityListApi = utilityDetailService.findUtilityBillsGroupByFiscalYear();
 		return utilityListApi;
 	}
 	@SuppressWarnings("unchecked")

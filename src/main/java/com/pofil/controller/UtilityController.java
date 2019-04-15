@@ -87,7 +87,7 @@ public class UtilityController {
 	@RequestMapping(value = "/utilitylist", method = RequestMethod.GET)
 	public String getUtilityList(Model model) {
 		List<UtilityBills> utilityBillsFiscal = utilityDetailService.findByFiscalYear(Sort.by(Sort.Direction.ASC, "fiscalYear"));
-		System.err.println(utilityBillsFiscal);
+		List<UtilityBills> utilityBillsResultsList = utilityDetailService.findUtilityBillsGroupByFiscalYear();
 		model.addAttribute("utilityByFiscal", utilityBillsFiscal);
 		return "utility/utilitylist";
 	}

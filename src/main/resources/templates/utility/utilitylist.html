@@ -133,8 +133,8 @@
 							</thead>
 							<tbody>
 								<tr th:each="utilityByFiscal,row:*{utilityByFiscal}">								
-									<td th:text="${utilityByFiscal?.fiscalYear}" onload="computeExpenseSum('Electricity Expenses')"></td>
-									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[0]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Electricity Expenses')">test</td>									
+									<td th:text="${utilityByFiscal?.fiscalYear}"></td>
+									<td id="txtEle" th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[0]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Electricity Expenses')"><script>computeExpenseSum('Electricity Expenses')</script></td>									
 									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[1]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Fuel Expenses  (Vehicle- 2 Wheeler)')">test</td>
 									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[2]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Fuel Expenses (Vehicle-4 Wheeler)')">test</td>
 									<td th:text="${#numbers.formatDecimal(utilityByFiscal?.expense[3]?.amount, 1, 2,'POINT')}" onload="computeExpenseSum('Fuel Expenses (Genset)')">test</td>
@@ -377,15 +377,13 @@
 		</script>
 		
 		<script th:inline="javascript">
-		 $(document).ready(function(){
-		var utilityByFiscalYear;
-		/*<![CDATA[*/
-		utilityByFiscalYear = /*[[${utilityByFiscal}]]*/ 'UtilityByfiscalyear';	
-	    /*]]>*/ 
-		 });
+		
 		 
 		 function computeExpenseSum(category)
 			{
+				/*<![CDATA[*/
+				var utilityByFiscalYear = /*[[${utilityByFiscal}]]*/ 'UtilityByfiscalyear';	
+			    /*]]>*/ 
 			  let sum = 0;
 			  utilityByFiscalYear.forEach((utility) =>{
 			  utility.expense.forEach((expense) => {
@@ -393,6 +391,8 @@
 			      sum=sum+expense.amount;
 			    });
 			  });
+			console.log(sum);
+			  alert(sum);
 			  return sum;
 			} 
 		</script>

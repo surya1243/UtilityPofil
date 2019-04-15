@@ -15,6 +15,6 @@ public interface UtilityDetailService {
 	Optional<UtilityBills> findByBranchNameAndFiscalYear(String branchName, String fiscalYear);
 	Optional<UtilityBills> findByMonthAndFiscalYear(String month, String fiscalYear);
 	UtilityBills findByBranchNameAndFiscalYearAndMonth(String branchName, String fiscalYear, String month);
-
+	List<UtilityBills> findUtilityBillsGroupByFiscalYear();
 	
 }

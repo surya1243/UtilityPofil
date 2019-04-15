@@ -16,6 +16,8 @@ public interface UtilityBillsRepository extends MongoRepository<UtilityBills, St
 	Optional<UtilityBills> findByBranchNameAndFiscalYear(String branchName, String fiscalYear);
 	Optional<UtilityBills> findByMonthAndFiscalYear(String month, String fiscalYear);
 	UtilityBills findByBranchNameAndFiscalYearAndMonth(String branchName, String fiscalYear, String month);
+	List<UtilityBills> findUtilityBillsGroupByFiscalYear();
+	
 	
 	@Query(value = "{?0: ?1}", count = true)
 	public Long countOrderOf(String field, String value);
