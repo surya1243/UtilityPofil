@@ -2,6 +2,7 @@ package com.pofil.model;
 
 import groovy.transform.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -12,7 +13,10 @@ public class InsuranceCustomer {
 
     @Id
     private String id;
+    
+    @Indexed(unique = true)
     private int clientCode;
+    
     private String bankAccNo;
     private String clientName;
     private String clientEmail;

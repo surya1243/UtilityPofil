@@ -8,11 +8,8 @@ import com.pofil.model.Branch;
 public interface BranchDetailService {
 	
 	Optional<Branch> getBranchById(String id);
-
-	Branch getBranchByName(String branchName);
-
+	Optional<Branch> getBranchByBranchName(String branchName);
 	List<Branch> getAllBranch();
-
 	Branch saveBranch(Branch branch);
 
 }

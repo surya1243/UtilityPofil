@@ -1,17 +1,21 @@
 package com.pofil.service;
 
-import com.pofil.model.InsuranceSchema;
-
 import java.util.List;
 import java.util.Optional;
 
+import com.pofil.model.InsuranceSchema;
+
 public interface InsuranceSchemaDetailService {
 
-    Optional<InsuranceSchema> getInsuranceSchemaById(String id);
+	Optional<InsuranceSchema> getInsuranceSchemaById(String id);
 
-    InsuranceSchema getInsuranceSchemaByInsSchemaCode(String insCode);
+	Optional<InsuranceSchema> findByInsSchemaName(String insSchemaName);
 
-    List<InsuranceSchema> getInsuranceSchemas();
+	List<InsuranceSchema> getInsuranceSchemaByCompanyName(String insCompanyName);
 
-    InsuranceSchema saveInsuranceSchema(InsuranceSchema insuranceSchema);
+	InsuranceSchema getInsuranceSchemaByInsSchemaCode(String insCode);
+
+	List<InsuranceSchema> getInsuranceSchemas();
+
+	InsuranceSchema saveInsuranceSchema(InsuranceSchema insuranceSchema);
 }

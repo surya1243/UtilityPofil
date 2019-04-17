@@ -242,18 +242,16 @@
 <th:block layout:fragment="scripts">
     <script src="../static/js/moment.min.js" th:src="@{/js/moment.min.js/}"></script>
     <script src="../static/js/bootstrap-datetimepicker.min.js" th:src="@{/js/bootstrap-datetimepicker.min.js/}"></script>
- <script src="../static/js/autosize.min.js" th:src="@{/js/autosize.min.js/}"></script>
-  <script src="../static/js/getBranch.js" th:src="@{/js/getBranch.js/}"></script>
+ 	<script src="../static/js/autosize.min.js" th:src="@{/js/autosize.min.js/}"></script>
+  	<script src="../static/js/getBranch.js" th:src="@{/js/getBranch.js/}"></script>
      <script src="../static/js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js/}"></script>
- <script>
+ 	<script>
 		autosize(document.querySelectorAll('textarea'));
 	</script>
     <script>
-
 	if(!ace.vars['touch']) {
 		$('.chosen-select').chosen({allow_single_deselect:true}); 
 		//resize the chosen on window resize
-
 		$(window)
 		.off('resize.chosen')
 		.on('resize.chosen', function() {
@@ -271,7 +269,6 @@
 			})
 		});
 	}
-
 	if(!ace.vars['old_ie']) $('#date-timepicker1').datetimepicker({
 	 //format: 'MM/DD/YYYY h:mm:ss A',//use this option to display seconds
 	 icons: {
@@ -288,9 +285,7 @@
 	}).next().on(ace.click_event, function(){
 		$(this).prev().focus();
 	});
-
     </script>
-
 </th:block>
 
 

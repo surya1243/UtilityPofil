@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pofil.model.InsuranceCompany;
-import com.pofil.repository.FiscalYearRepository;
 import com.pofil.repository.InsuranceCompanyRepository;
+
 @Service
 public class InsuranceCompanyDetailServiceImpl implements InsuranceCompanyDetailService {
-	
-private InsuranceCompanyRepository companyRepository;
-	
+
+	private InsuranceCompanyRepository companyRepository;
+
 	@Autowired
 	public InsuranceCompanyDetailServiceImpl(InsuranceCompanyRepository companyRepository) {
 		this.companyRepository = companyRepository;
+	}
+
+	@Override
+	public Optional<InsuranceCompany> getInsCompanyByName(String insCompanyName) {
+		return companyRepository.findByInsCompanyName(insCompanyName);
 	}
 
 	@Override

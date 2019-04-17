@@ -82,7 +82,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping("/updateuser/{id}") //@RequestMapping(value = "/plant/edit")
+	@GetMapping("/updateuser/{id}")
 	public String updateUser(Model model,@PathVariable String id){
 		System.out.println("in console Id: " + id);
 		Optional<AppUser> user = userRepository.findById(id);

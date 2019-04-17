@@ -12,19 +12,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-        <ul class="breadcrumb">
-            <li>
-                <i class="ace-icon fa fa-home home-icon"></i>
-                <a href="#">Home</a>
-            </li>
-
-            <li>
-                <a href="#">UI &amp; Elements</a>
-            </li>
-            <li class="active">Elements</li>
-        </ul><!-- /.breadcrumb -->
-    </div>
+    
     <div class="page-content">
         <div class="page-header">
             <h1>
@@ -36,19 +24,19 @@
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <div class="tabbable">
                             <ul class="nav nav-tabs" id="myTab">
                                 <li class="active">
                                     <a data-toggle="tab" href="#home">
                                         <i class="green ace-icon fa fa-home bigger-120"></i>
-                                        Add New Insurance Company
+                                        Add Insurance Company
                                     </a>
                                 </li>
 
                                 <li>
                                     <a data-toggle="tab" href="#messages">
-                                        Add Insurance Scheme Product
+                                        Add Insurance Scheme
                                     </a>
                                 </li>
                             </ul>
@@ -80,13 +68,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="block clearfix" for="insCType">Insurance Type</label>
-                                                <select class="chosen-select form-control" data-placeholder="Choose insurance company type..." id="insCType"
-                                                        multiple=""
-                                                        name="insCompanyType" required>
+                                               <select class="chosen-select form-control" data-placeholder="Choose insurance company type..." id="insCType"name="insCompanyType" required>
                                                     <option value=""></option>
                                                     <option value="Life">Life</option>
-                                                   <!--  <option value="Non_Life">Non Life</option>
-                                                    <option value="Life_NonLife">Life & Non Life</option> -->
+                                                   	<option value="Non_Life">Non Life</option>
+                                                    <option value="Life_NonLife">Life & Non Life</option>
                                                 </select>
                                                 <div class="help-block with-errors"></div>
                                             </div>
@@ -116,23 +102,20 @@
                                         </fieldset>
                                     </form>
                                 </div>
+<!--  -->
+
+
 
                                 <div class="tab-pane fade" id="messages">
-                                    <form data-toggle="validator" method="POST" role="form"
-                                          th:action="@{/addinsschema}" th:object="${insSchema}">
+                                    <form data-toggle="validator" method="POST" role="form"th:action="@{/addinsschema}" th:object="${insSchema}">
                                         <fieldset>
                                             <div class="form-group">
-                                                <label class="block clearfix" for="insCompanyCode">Insurance Company
-                                                    Code</label>
-                                                <select class="form-control" id="insCompanyCode" name="insCompanyCode"
-                                                        required>
-                                                    <option selected value=""> Please Select Insurance Company Code...
-                                                    </option>
-                                                    <option th:each="companyCode : ${companyCode}"
-                                                            th:text="${companyCode.insCompanyCode}"
-                                                            th:value="${companyCode.insCompanyCode}"></option>
-                                                </select>
+                                                <label class="block clearfix" for="insCompanyName">Insurance Company Name</label>
+                                                <select class="form-control" id="insCompanyName" name="insCompanyName" required></select>
                                                 <div class="help-block with-errors"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div id="insCompanyCode"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="block clearfix" for="inscode">Scheme Code</label>
@@ -154,11 +137,19 @@
                                                        </span>
                                                 <div class="help-block with-errors"></div>
                                             </div>
-
+											<div class="form-group">
+                                                <label class="block clearfix" for="schemeTenure">Scheme Tenure (Years)</label>
+                                                <span class="block input-icon input-icon-right">
+                                                      <input class="form-control" data-error="Please enter Insurance Scheme Tenure"
+                                                             id="schemeTenure"
+                                                             name="insSchemaTenure" placeholder="Insurance Scheme Tenure" required
+                                                             type="number"/>
+                                                       </span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
                                             <div class="form-group">
-                                                <label class="block clearfix" for="insType">Insurance
-                                                    Type</label>
-                                                <select class="form-control" id="insType" name="schemaType" required>
+                                                <label class="block clearfix" for="insType">SchemeType</label>
+                                                <select class="chosen-select form-control" id="insType" name="schemaType" required>
                                                     <option selected value=""> Please Select Insurance Company Type...
                                                     </option>
                                                     <option value="Life">Life</option>
@@ -197,7 +188,7 @@
                         </div>
                     </div><!-- /.col -->
                     <div class="vspace-6-sm"></div>
-                    <div class="col-sm-7">
+                    <div class="col-sm-8">
                         <div class="tabbable">
                             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                 <li class="active">
@@ -216,6 +207,7 @@
                                         <table class="dynamic-table table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
+                                            	<th data-class='hidden'></th>
                                                 <th width="25%">Insurance Company Code</th>
                                                 <th class="hidden-480" width="25%">Company Name</th>
                                                 <th class="hidden-480" width="25%">Insurance Type</th>
@@ -226,6 +218,7 @@
 
                                             <tbody>
                                             <tr th:each="branchList :${branchList}">
+                                            	<td></td>
                                                 <td th:text="${branchList?.insCompanyCode}">test</td>
                                                 <td class="hidden-480" th:text="${branchList?.insCompanyName}">test</td>
                                                 <td class="hidden-480" th:text="${branchList?.insCompanyType}">test</td>
@@ -293,20 +286,22 @@
                                         <table class="dynamic-table table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th >Company Code</th>
+                                                <th >Company Name</th>
                                                 <th >Scheme Code</th>
                                                 <th >Scheme Name</th>
-                                                <th >Company Type</th>
+                                                <th >Scheme Tenure</th>
+                                                <th >Scheme Type</th>
                                                 <th width="10%">Action</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
                                             <tr th:each="fiscalYearList :${fiscalYearList}">
-                                                <td th:text="${fiscalYearList?.insCompanyCode}">test</td>
-                                                <td th:text="${fiscalYearList?.insSchemaCode}">test</td>
+                                                <td th:text="${fiscalYearList?.insCompanyName}">test</td>
                                                 <td th:text="${fiscalYearList?.insSchemaCode}">test</td>
                                                 <td th:text="${fiscalYearList?.insSchemaName}">test</td>
+                                                <td th:text="${fiscalYearList?.insSchemaTenure}">test</td>
+                                                <td th:text="${fiscalYearList?.schemaType}">test</td>
                                                 <td>
                                                     <div class="hidden-sm hidden-xs action-buttons">
                                                         <ul id="parent">
@@ -389,40 +384,30 @@
     <script src="../static/js/dataTables.select.min.js" th:src="@{/js/dataTables.select.min.js/}"></script>
     <script src="../static/js/chosen.jquery.min.js" th:src="@{/js/chosen.jquery.min.js/}"></script>
     <script src="../static/js/autosize.min.js" th:src="@{/js/autosize.min.js/}"></script>
+    <script src="../static/js/getInsuranceCompany.js" th:src="@{/js/getInsuranceCompany.js/}"></script>
     <script>
         autosize(document.querySelectorAll('textarea'));
     </script>
     <script type="text/javascript">
+	   $('.chosen-select').chosen();    
+	   $(window)
+		.off('resize.chosen')
+		.on('resize.chosen', function() {
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({minWidth: '220px'});
+			})
+		}).trigger('resize.chosen');  
+    </script>
+    <script type="text/javascript">
         jQuery(function ($) {
-
-            if (!ace.vars['touch']) {
-                $('.chosen-select').chosen({allow_single_deselect: true});
-                //resize the chosen on window resize
-
-                $(window)
-                    .off('resize.chosen')
-                    .on('resize.chosen', function () {
-                        $('.chosen-select').each(function () {
-                            var $this = $(this);
-                            $this.next().css({'width': $this.parent().width()});
-                        })
-                    }).trigger('resize.chosen');
-                //resize chosen on sidebar collapse/expand
-                $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
-                    if (event_name != 'sidebar_collapsed') return;
-                    $('.chosen-select').each(function () {
-                        var $this = $(this);
-                        $this.next().css({'width': $this.parent().width()});
-                    })
-                });
-            }
             //initiate dataTables plugin
             $('.dynamic-table')
 
                 .DataTable({
                     bAutoWidth: false,
                     "aoColumns": [
-                        null, null, null, null,
+                        null, null, null, null, null,
 
                         {"bSortable": false}
                     ],
@@ -432,6 +417,7 @@
                 });
         })
     </script>
+   
 </th:block>
 <!-- basic scripts -->
 

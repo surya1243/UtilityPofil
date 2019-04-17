@@ -16,8 +16,8 @@ public class InsuranceCustomerDetailServiceImpl implements InsuranceCustomerDeta
     private InsuranceCustomerDetailService insuranceCustomerDetailService;
 
     @Override
-    public Optional<InsuranceCustomer> getInsCompanyById(String id) {
-        return Optional.empty();
+    public Optional<InsuranceCustomer> getInsCustomerById(String id) {
+        return insuranceCustomerRepository.findById(id);
     }
 
     @Override

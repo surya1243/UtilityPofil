@@ -26,20 +26,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class InsuranceCompanyController {
 	public static final int ID_LENGTH = 5;
 	@Autowired
-	private BranchRepository branchRepository;
-	@Autowired
-	private InsuranceCompanyRepository repo;
-
-	@Autowired
-	private InsuranceCustomerRepository insuranceCustomerRepository;
-
-	@Autowired
-	private InsuranceCustomerDetailService insuranceCustomerDetailService;
+	private InsuranceCompanyRepository insuranceCompanyRepository;
 
 	@Autowired
 	private InsuranceSchemaRepository schemaRepository;
@@ -54,45 +47,15 @@ public class InsuranceCompanyController {
     public String getInsCompanyForm(HttpServletRequest request, Model model) {
         return "insurance/insurance_customer_form";
     }
-    
     @RequestMapping(value = "/insSchema", method = RequestMethod.GET)
 	public String getInsSchemaForm(HttpServletRequest request, Model model) {
-		List<InsuranceCompany> insuranceCompanyList = repo.findAll();
+		List<InsuranceCompany> insuranceCompanyList = insuranceCompanyRepository.findAll();
 		List<InsuranceSchema> insuranceSchemaList = schemaRepository.findAll();
 		model.addAttribute("branchList", insuranceCompanyList);
 		model.addAttribute("fiscalYearList", insuranceSchemaList);
 		model.addAttribute("companyCode", insService.getAllInsCompany());
 		return "insurance/insurance_and_schema_form";
 	}
-
-	@RequestMapping(value = "/inscustlist", method = RequestMethod.GET)
-	public String getInsCustomerList(HttpServletRequest request, Model model) {
-		List<InsuranceCustomer> insuranceCustomerList = insuranceCustomerRepository.findAll();
-		model.addAttribute("insCustList", insuranceCustomerList);
-		return "insurance/insurance_customer_list";
-	}
-
-	@RequestMapping(value = "/inscustform2/{id}", method = RequestMethod.GET)
-	public String getInsCustomerForm(HttpServletRequest request, Model model, @PathVariable String id) {
-		List<InsuranceCompany> insuranceCompanyList = repo.findAll();
-		List<InsuranceSchema> insuranceSchemaList = schemaRepository.findAll();
-		List<InsuranceCustomer> insuranceCustomerList = insuranceCustomerRepository.findAll();
-		List<Branch> branchList = branchRepository.findAll();
-		model.addAttribute("branchList", branchList);
-		model.addAttribute("insuranceCompanyList", insuranceCompanyList);
-		model.addAttribute("insuranceSchemaList", insuranceSchemaList);
-		model.addAttribute("insCustList", insuranceCustomerList);
-		return "insurance/insurance_customer_form2";
-	}
-
-	/*@RequestMapping(value = "/singleview/{id}", method = RequestMethod.GET)
-	public String getPlant(@PathVariable String id, Model model) {
-		Optional<Plant> selectedPlant = repository.findById(id);
-		model.addAttribute("plantDetails", selectedPlant.get());
-		return "webusers/singleview";
-	}
-*/
-
 	@RequestMapping(value = "/addinscompany", method = RequestMethod.POST)
 	public ModelAndView saveInsuranceCompany(InsuranceCompany insCompany, BindingResult bindingResult) {
     	List<String> insCType = new ArrayList<>();
@@ -111,12 +74,11 @@ public class InsuranceCompanyController {
 		} else {
 			insCompany.setInsCompanyType(insCType);
 			insCompany.setId(generateUniqueId());
-			repo.save(insCompany);
+			insuranceCompanyRepository.save(insCompany);
 			modelView.setViewName("register");
 		}
 		return modelView;
 	}
-
 	@RequestMapping(value = "/addinsschema", method = RequestMethod.POST)
 	public ModelAndView saveInsuranceSchema(InsuranceSchema insSchema, BindingResult bindingResult) {
 		ModelAndView modelView = new ModelAndView();
@@ -135,17 +97,6 @@ public class InsuranceCompanyController {
 		}
 		return modelView;
 	}
-
-	@RequestMapping(value = "/addinscust", method = RequestMethod.POST)
-	public ModelAndView saveInsuranceCustomer(InsuranceCustomer insuranceCustomer, BindingResult bindingResult) {
-		ModelAndView modelView = new ModelAndView();
-		insuranceCustomer.setId(generateUniqueId());
-			insuranceCustomerRepository.save(insuranceCustomer);
-			modelView.setViewName("register");
-
-		return modelView;
-	}
-
     public String generateUniqueId() {
 		return RandomStringUtils.randomAlphanumeric(ID_LENGTH);
 	}

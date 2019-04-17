@@ -20,14 +20,16 @@ public class BranchDetailServiceImpl implements BranchDetailService {
 		this.branchRepository = branchRepository;
 	}
 
+	
+
 	@Override
-	public Optional<Branch> getBranchById(String id) {
-		return branchRepository.findById(id);
+	public Optional<Branch> getBranchByBranchName(String branchName) {
+		return branchRepository.findByBranchNameEquals(branchName);
 	}
 
 	@Override
-	public Branch getBranchByName(String branchName) {
-		return branchRepository.findByBranchName(branchName);
+	public Optional<Branch> getBranchById(String id) {
+		return branchRepository.findById(id);
 	}
 
 	@Override

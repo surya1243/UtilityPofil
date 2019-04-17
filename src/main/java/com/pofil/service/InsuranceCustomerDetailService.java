@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface InsuranceCustomerDetailService {
-    Optional<InsuranceCustomer> getInsCompanyById(String id);
+    Optional<InsuranceCustomer> getInsCustomerById(String id);
 
     InsuranceCustomer getInsuranceCustomerByName(String insCustomerName);
 

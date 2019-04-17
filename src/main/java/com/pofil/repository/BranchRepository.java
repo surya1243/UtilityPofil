@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.pofil.model.Branch;
 
 public interface BranchRepository extends MongoRepository<Branch, String> {
+	Optional<Branch> findByBranchNameEquals(String branchName);
 	Branch findByBranchName(String branchName);
 
 }
