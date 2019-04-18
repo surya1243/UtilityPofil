@@ -1,5 +1,6 @@
 package com.pofil.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,16 +19,20 @@ import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.MongoCursor;
 import com.pofil.Util.Response;
 import com.pofil.model.Branch;
+import com.pofil.model.Feedback;
 import com.pofil.model.FiscalYear;
 import com.pofil.model.InsuranceCompany;
+import com.pofil.model.InsuranceCustomerRegister;
 import com.pofil.model.InsuranceSchema;
 import com.pofil.model.UtilityBills;
 import com.pofil.repository.BranchRepository;
+import com.pofil.repository.FeedbackRepository;
 import com.pofil.repository.FiscalYearRepository;
 import com.pofil.repository.UtilityBillsRepository;
 import com.pofil.service.BranchDetailService;
 import com.pofil.service.FiscalYearDetailService;
 import com.pofil.service.InsuranceCompanyDetailService;
+import com.pofil.service.InsuranceCustomerRegisterDetailService;
 import com.pofil.service.InsuranceSchemaDetailService;
 import com.pofil.service.UtilityDetailService;
 
@@ -44,11 +50,16 @@ public class UtilityRestController {
 	UtilityDetailService utilityDetailService;
 
 	@Autowired
+	FeedbackRepository feedbackRepository;
+
+	@Autowired
 	UtilityBillsRepository utilityBillsRepository;
 	@Autowired
 	private FiscalYearDetailService fiscalYearDetailService;
 	@Autowired
 	private BranchDetailService branchDetailService;
+	@Autowired
+	private InsuranceCustomerRegisterDetailService insCustRegisterDetailService;
 	@Autowired
 	private InsuranceCompanyDetailService insuranceCompanyDetailService;
 	@Autowired
@@ -117,5 +128,29 @@ public class UtilityRestController {
 	@RequestMapping(value = "/getbyschemename/{insSchemaName}", method = RequestMethod.GET)
 	public Optional<InsuranceSchema> getInsSchemeCodeBySchemeName(@PathVariable String insSchemaName) {
 		return insuranceSchemaDetailService.findByInsSchemaName(insSchemaName);
+	}
+
+	@GetMapping("/getbycompanyname/{insCompanyName}")
+	public List<InsuranceCustomerRegister> getInsCustByCompanyName(@PathVariable String insCompanyName) {
+		return insCustRegisterDetailService.findByInsCompanyName(insCompanyName);
+	}
+
+	@GetMapping("/getbycompanyandscheme/{insCompanyName}/{insSchemeName}")
+	public List<InsuranceCustomerRegister> getInsCustByCompanyAndSchemeName(@PathVariable String insCompanyName,
+			@PathVariable String insSchemeName) {
+		return insCustRegisterDetailService.findByInsCompanyNameAndInsSchemaName(insCompanyName, insSchemeName);
+	}
+
+	@GetMapping("/getbystartdaterange/{firstDate}/{secondDate}")
+	public List<InsuranceCustomerRegister> getInsCustByStartDateRange(@PathVariable Date firstDate,
+			@PathVariable Date secondDate) {
+		System.out.println(firstDate);
+		return insCustRegisterDetailService.findByInsStartedDateIsBetween(firstDate, secondDate);
+	}
+
+	@GetMapping("/getfeedbackdaterange/{firstDate}/{secondDate}")
+	public List<Feedback> getFeedbackByDateRange(@PathVariable String firstDate, @PathVariable String secondDate) {
+		System.out.println(firstDate);
+		return feedbackRepository.findByDateBetween(firstDate, secondDate);
 	}
 }

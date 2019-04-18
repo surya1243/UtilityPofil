@@ -1,11 +1,8 @@
 package com.pofil.model;
 
-import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import groovy.transform.ToString;
 
@@ -20,14 +17,15 @@ public class InsuranceCustomerRegister {
 	private String masterPolicyId;
 
 	private String insCompanyName;
+	private String insCompanyCode;
 	private String insSchemaCode;
 	private String insSchemaName;
 	private String clientCode;
 	private String insSchemaTenure;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date insStartedDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date insEndDate;
+	// @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private String insStartedDate;
+	// @DateTimeFormat(pattern = "YYYY-MM-DD HH:mm:ss.SSS")
+	private String insEndDate;
 
 	private String bankBranchName;
 	private String insuredAmount;
@@ -69,6 +67,14 @@ public class InsuranceCustomerRegister {
 		this.insCompanyName = insCompanyName;
 	}
 
+	public String getInsCompanyCode() {
+		return insCompanyCode;
+	}
+
+	public void setInsCompanyCode(String insCompanyCode) {
+		this.insCompanyCode = insCompanyCode;
+	}
+
 	public String getInsSchemaCode() {
 		return insSchemaCode;
 	}
@@ -93,19 +99,19 @@ public class InsuranceCustomerRegister {
 		this.insSchemaTenure = insSchemaTenure;
 	}
 
-	public Date getInsStartedDate() {
+	public String getInsStartedDate() {
 		return insStartedDate;
 	}
 
-	public void setInsStartedDate(Date insStartedDate) {
+	public void setInsStartedDate(String insStartedDate) {
 		this.insStartedDate = insStartedDate;
 	}
 
-	public Date getInsEndDate() {
+	public String getInsEndDate() {
 		return insEndDate;
 	}
 
-	public void setInsEndDate(Date insEndDate) {
+	public void setInsEndDate(String insEndDate) {
 		this.insEndDate = insEndDate;
 	}
 

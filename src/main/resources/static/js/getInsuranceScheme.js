@@ -59,16 +59,21 @@ $( document ).ready(function() {
 		console.log(schemeName);
 		let insSchemeCode = $('#idSchemeCode');
 		let insSchemeTenure = $('#idSchemaTenure');
+		let insCompanyCode = $('#idInsCompanyCode');
 		insSchemeCode.empty();
 		insSchemeTenure.empty();
+		insCompanyCode.empty();
 		const url = '/getbyschemename/'+schemeName;
 		$.getJSON(url, function (data) {
 			insSchemeCode.empty();
 			insSchemeTenure.empty();
+			insCompanyCode.empty();
 			insSchemeCode.append($("<input class='hidden' name='insSchemaCode'>").attr('value', data.insSchemaCode).text(data.insSchemaCode));
-			insSchemeCode.append("<div class='dd-handle'>Insurance Company Code: <span class='orange'>" + data.insSchemaCode+"</span></div>");
+			insSchemeCode.append("<div class='dd-handle'>Insurance Scheme Code: <span class='orange'>" + data.insSchemaCode+"</span></div>");
 			insSchemeTenure.append($("<input class='hidden' name='insSchemaTenure'>").attr('value', data.insSchemaTenure).text(data.insSchemaTenure));
 			insSchemeTenure.append("<div class='dd-handle'>SchemaTenure (Years): <span class='orange'>" + data.insSchemaTenure+"</span></div>");
+			insCompanyCode.append($("<input class='hidden' name='insCompanyCode'>").attr('value', data.insCompanyCode).text(data.insCompanyCode));
+			insCompanyCode.append("<div class='dd-handle'>Insurance Company Code: <span class='orange'>" + data.insCompanyCode+"</span></div>");
 			});
 	}
 	

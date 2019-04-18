@@ -1,5 +1,6 @@
 package com.pofil.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +41,24 @@ public class InsuranceCustomerRegisterServiceImpl implements InsuranceCustomerRe
 	}
 
 	@Override
+	public List<InsuranceCustomerRegister> findByInsCompanyName(String insCompanyName) {
+		return insCustRegisterRepository.findByInsCompanyName(insCompanyName);
+	}
+
+	@Override
 	public List<InsuranceCustomerRegister> getAllInsuranceCustomerRegister() {
 		return insCustRegisterRepository.findAll();
+	}
+
+	@Override
+	public List<InsuranceCustomerRegister> findByInsCompanyNameAndInsSchemaName(String insCompanyName,
+			String insSchemeName) {
+		return insCustRegisterRepository.findByInsCompanyNameAndInsSchemaName(insCompanyName, insSchemeName);
+	}
+
+	@Override
+	public List<InsuranceCustomerRegister> findByInsStartedDateIsBetween(Date firstDate, Date secondDate) {
+		return insCustRegisterRepository.findByInsStartedDateIsBetween(firstDate, secondDate);
 	}
 
 	@Override

@@ -93,9 +93,15 @@ public class InsuranceCustomerRegisterController {
 
 	@GetMapping("/inscustreport")
 	public String getInsuranceCustomerReport(Model model) {
-		List<InsuranceCustomerRegister> insuranceCustomerRegisterList = insCustRegisterDetailService.getAllInsuranceCustomerRegister();
-		model.addAttribute("insCustRegisterList", insuranceCustomerRegisterList);
 		return "insurance/insurance_customer_report";
+	}
+
+	@GetMapping("/inscustreportall")
+	public String getAllInsuranceCustomerReport(Model model) {
+		List<InsuranceCustomerRegister> insuranceCustomerRegisterList = insCustRegisterDetailService
+				.getAllInsuranceCustomerRegister();
+		model.addAttribute("insCustRegisterList", insuranceCustomerRegisterList);
+		return "insurance/insurance_customer_all_list";
 	}
 
 	public String generateUniqueId() {
